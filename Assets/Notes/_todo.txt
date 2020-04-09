@@ -1,0 +1,3 @@
+TODO
+
+[ ] If you catch the ball on the bottom left or right corner of the paddle, while going in that direction, it will slow the ball down almost to a stop. You won't be able to hit it to make it go faster due to having no gravity.

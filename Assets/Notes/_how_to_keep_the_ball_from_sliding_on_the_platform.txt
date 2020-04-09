@@ -1,0 +1,1 @@
+The ball slides at the beginning of the game on the paddle slightly if you move the paddle fast enough. This is because the paddle position and ball position calculations are done at separate times. To fix this, go into Edit->ProjectSettings->ScriptExecutionOrder.

@@ -1,0 +1,1 @@
+* If the camera is of size 6 in a 4:3(1440x1080) ratio, that means the total height is 12. We then take the width of our sprite, hopefully it is also (1440x1080), and divide it by 12 ( 1080 / 12 = 9 ). Now we know that we need 90 pixels per unit to make our pixel image the same size as our camera.
