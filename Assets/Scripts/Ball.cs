@@ -27,6 +27,21 @@ public class Ball : MonoBehaviour
     #endregion
 
 
+    // TESTING
+    [SerializeField] float speedInUnitsPerSecond; // Meters per Second
+
+    // TESTING
+    [SerializeField] float speedInMilesPerHour;
+
+    // TESTING
+    [SerializeField] float highestSpeedInMps = 0f;
+    
+    // TESTING
+    [SerializeField] float highestSpeedInMph = 0f;
+
+    // TESTING
+    Conversions conversions = new Conversions();
+
     #region States
     // A Vector2 that will used to calculate the distance between the paddle and the ball.
     Vector2 paddleToBallVector;
@@ -49,7 +64,7 @@ public class Ball : MonoBehaviour
     /// Update is called once per frame
     /// </summary>
     void Update()
-    {
+    {   
         // If the player hasn't shot the ball yet
         if (!hasShot)
         {
@@ -60,6 +75,55 @@ public class Ball : MonoBehaviour
             // Shoot the ball when the player clicks the mouse button.
             LaunchOnMouseClick();
         }
+        else if (hasShot)
+        {
+            // Display speed in mps and mph
+            DisplaySpeeds();
+
+
+            //// Velocity = Distance / Time
+
+            //// Say speed is 6. That's 6 unity units/s.
+            //// You have a conversion of 1 meter = 1 unit
+            //// 1 m = 3.3 feet so then (6 * 3.33) is 19.69 feet/s
+            //// There is 3600 seconds in an hour. So, if you travel at 6 m/s then that converts to 21.6 km/h
+            //// At ~1.6 km/h per 1 mile/h, 6 m/s is 34.56 miles/h
+
+            //speedInUnitsPerSecond = GetComponent<Rigidbody2D>().velocity.magnitude;
+
+            //// (units/s) * (3.33 feet) = feet/s
+            //// 3600 seconds in an hour.     6 meters/second * 3.6 = 21.6 kilometers/hour
+            ////                              1 meter/second * 3.6 = 3.6 kilometers/hour
+            //// ~1.6 km/h per 1 mile/h
+
+        }
+    }
+
+    /// <summary>
+    /// Display the speeds in the serialized fields
+    /// </summary>
+    private void DisplaySpeeds()
+    {
+        // Update the speed in Meters Per Second every frame
+        speedInUnitsPerSecond = GetComponent<Rigidbody2D>().velocity.magnitude;
+
+        // If the current mps is greater than or equal to the highest mps speed so far, update the highest speed.
+        if (speedInUnitsPerSecond >= highestSpeedInMps)
+        {
+            highestSpeedInMps = GetComponent<Rigidbody2D>().velocity.magnitude;
+        }
+
+        // Update the speed in Miles Per Hour every frame
+        speedInMilesPerHour = conversions.MpsToMph(GetComponent<Rigidbody2D>().velocity.magnitude);
+
+        // If the current mph is greater than or equal to the highest mph speed so far, update the highest speed.
+        if (speedInMilesPerHour >= highestSpeedInMph)
+        {
+            highestSpeedInMph = conversions.MpsToMph(GetComponent<Rigidbody2D>().velocity.magnitude);
+        }
+
+        //[ ] Display the average speed on both
+
     }
 
     /// <summary>
@@ -90,5 +154,102 @@ public class Ball : MonoBehaviour
 
         // Add the current X and Y paddle positions with the distance between the two Y coordinates of the paddle and ball.
         transform.position = _paddlePosition + paddleToBallVector;
+    }
+
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <param name="collision">TODO</param>
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        GetComponent<AudioSource>().Play();
+    }
+
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <param name="_meters"></param>
+    /// <param name="_second"></param>
+    /// <returns></returns>
+    //float metersPerSecond(float _meters, float _second, float _distance, float)
+    //{
+    //    float _velocity = 0f;
+
+    //    return _velocity;
+    //}
+
+}
+
+/// <summary>
+/// TODO
+/// </summary>
+public class Conversions
+{
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <param name="_meters"></param>
+    /// <param name="_seconds"></param>
+    /// <param name="_distance"></param>
+    /// <param name="_time"></param>
+    /// <returns></returns>
+    //public float MetersPerSecond(float _meters, float _seconds, float _distance, float _time)
+    //{
+    public float MetersPerSecond(float _meters, float _seconds)
+    {
+        // Velocity(Speed) = (Distance(Meters)) / (Time(Seconds))
+
+        // _velocity is meters per second
+
+        float _velocity = 0f;
+
+        // One unity unit is one meter.
+        // speedInUnitsPerSecond = GetComponent<Rigidbody2D>().velocity.magnitude;
+        // This code above will give us unity units/s, so meters/second
+
+
+        // Velocity(m/s) = (distance in meters)/(time in seconds)
+        //_velocity = (_distance * _meters) / (_time * _seconds);
+
+
+        _velocity = _meters / _seconds;
+        // Speed  = Distance / Time
+
+        return _velocity;
+    }
+
+
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <param name="_meters"></param>
+    /// <param name="_time"></param>
+    /// <returns></returns>
+    public float MpsToMph(float _meters, float _second)
+    {
+        float _mph = 0f;
+        float _mps = 0f;
+
+        _mps = MetersPerSecond(_meters, _second);
+
+        _mph = _mps * 2.2369f;
+
+        return _mph;
+    }
+
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <param name="_meters"></param>
+    /// <param name="_time"></param>
+    /// <returns></returns>
+    public float MpsToMph(float _velocity)
+    {
+        float _mph = 0f;
+        float _mps = _velocity;
+
+        _mph = _mps * 2.2369f;
+
+        return _mph;
     }
 }

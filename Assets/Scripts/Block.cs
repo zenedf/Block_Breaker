@@ -14,6 +14,6 @@ public class Block : MonoBehaviour
 
 
         // This prints the name of the object that is colliding with this(Block) object.
-        Debug.Log(collision.gameObject.name);
+        //Debug.Log(collision.gameObject.name);
     }
 }
