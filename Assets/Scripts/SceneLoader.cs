@@ -16,7 +16,6 @@ public class SceneLoader : MonoBehaviour
         // Creates an index of the current active scenes in the 'Edit -> BuildSettings' in Unity
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-
         // Loads the next scene in the list.
         SceneManager.LoadScene(currentSceneIndex + 1);
     }
@@ -47,33 +46,4 @@ public class SceneLoader : MonoBehaviour
         // Closes the current application you are running.
         Application.Quit();
     }
-
-    /// <summary>
-    /// This creates a list of 'GameObjects' by iterating through each object in the current scene
-    /// </summary>
-    //void ListAllGameObjectsInCurrentScene()
-    //{
-    //    // Initializing a list of blank objects.
-    //    List<GameObject> _rootObjects = new List<GameObject>();
-
-
-    //    // Getting the current active scene.
-    //    Scene _scene = SceneManager.GetActiveScene();
-
-
-    //    // Returns a list of root game objects in the current scene.
-    //    _scene.GetRootGameObjects(_rootObjects);
-
-
-    //    // Traverse the list of root game objects
-    //    for (int i = 0; i < _rootObjects.Count; i++)
-    //    {
-    //        // Convert each 'rootObject' to a 'GameObject' one by one
-    //        GameObject _gameObj = _rootObjects[i];
-
-
-    //        // Print the current 'GameObject' in the list inside the debug console
-    //        Debug.Log(_gameObj);
-    //    }
-    //}
 }
