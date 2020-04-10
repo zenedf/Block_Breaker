@@ -1,7 +1,7 @@
 ﻿///TODO
 ///[ ] 'LaunchMouseOnClick' method launches the ball a little bit to the right no matter what.
 ///     If moving right at all, shoot ball right. If moving left at all, shoot ball right. Shoot right if stationary.
-///[ ] Add a method that detects the ball's speed.
+///[x] Add a method that detects the ball's speed.
 
 using System;
 using System.Collections;
@@ -28,19 +28,25 @@ public class Ball : MonoBehaviour
 
 
     // TESTING
-    [SerializeField] float speedInUnitsPerSecond; // Meters per Second
+    [SerializeField] float speedInUnitsPerSecond;
+    // Meters per Second
+
 
     // TESTING
     [SerializeField] float speedInMilesPerHour;
 
+
     // TESTING
     [SerializeField] float highestSpeedInMps = 0f;
-    
+
+
     // TESTING
     [SerializeField] float highestSpeedInMph = 0f;
 
+
     // TESTING
     Conversions conversions = new Conversions();
+
 
     #region States
     // A Vector2 that will used to calculate the distance between the paddle and the ball.
