@@ -27,8 +27,7 @@ public class SceneLoader : MonoBehaviour
     public void LoadStartScene()
     {
         // Loads the first/intro/start scene.
-        //SceneManager.LoadScene(0);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
     /// <summary>

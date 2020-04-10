@@ -1,7 +1,7 @@
 ﻿///TODO
 ///[ ] 'LaunchMouseOnClick' method launches the ball a little bit to the right no matter what.
 ///     If moving right at all, shoot ball right. If moving left at all, shoot ball right. Shoot right if stationary.
-///     
+///[ ] Add a method that detects the ball's speed.
 
 using System;
 using System.Collections;
@@ -24,14 +24,6 @@ public class Ball : MonoBehaviour
 
     // Pushes something 15f unity units per second upward.
     [SerializeField] float yPush = 15f;
-
-
-    // TESTING
-    //[SerializeField] Vector2 velocity = Vector2.zero;
-
-    //[SerializeField] GameObject go = new GameObject();
-        
-        
     #endregion
 
 
@@ -49,7 +41,6 @@ public class Ball : MonoBehaviour
     /// </summary>
     void Start()
     {
-
         // The current 'ball' vector minus the current 'paddle' vector.
         paddleToBallVector = transform.position - paddle1.transform.position;
     }
@@ -59,9 +50,6 @@ public class Ball : MonoBehaviour
     /// </summary>
     void Update()
     {
-
-        //velocity = go.GetComponent<Rigidbody2D>().velocity;
-
         // If the player hasn't shot the ball yet
         if (!hasShot)
         {
