@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class LoseCollider : MonoBehaviour
 {
-
     // Creates a 'SceneLoader' to load a scene using this script.
     SceneLoader loader = new SceneLoader();
 

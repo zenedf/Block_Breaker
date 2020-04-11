@@ -23,25 +23,44 @@ public class Ball : MonoBehaviour
     // Pushes something 15f unity units per second upward.
     [SerializeField] float yPush = 15f;
 
+
     // Meters per Second
     [SerializeField] float speedInUnitsPerSecond;
+    
+    // Meters per Second
+    [SerializeField] float speedInUnitsPerSecond;
+    
 
     // Miles Per Hour
     [SerializeField] float speedInMilesPerHour;
 
     // Keeps track of the highest speed in Meters Per Second
+
     [SerializeField] float highestSpeedInMps;
 
     // Keeps track of the highest speed in Miles Per Hour
     [SerializeField] float highestSpeedInMph;
+
+    [SerializeField] float highestSpeedInMps = 0f;
+
+    // Keeps track of the highest speed in Miles Per Hour
+    [SerializeField] float highestSpeedInMph = 0f;
+    
 
     #endregion
 
 
     #region States
 
+
     // An object reference to use the conversions methods
     Conversions conversions = new Conversions();
+
+
+    
+    // An object reference to use the conversions methods
+    Conversions conversions = new Conversions();
+    
 
     // A Vector2 that will used to calculate the distance between the paddle and the ball.
     Vector2 paddleToBallVector;
@@ -78,6 +97,7 @@ public class Ball : MonoBehaviour
             // Display speed in mps and mph
             DisplaySpeeds();
         }
+
     }
 
 
@@ -86,6 +106,8 @@ public class Ball : MonoBehaviour
         UpdateSpeeds();
 
         // Then displays them.
+
+
     }
 
     /// <summary>

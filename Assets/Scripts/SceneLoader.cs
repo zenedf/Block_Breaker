@@ -178,6 +178,7 @@ public class SceneLoader : MonoBehaviour
     /// <summary>
     /// This closes the application
     /// </summary>
+
     //public void QuitGame()
     //{
     //    // Closes the current application you are running.
@@ -185,4 +186,11 @@ public class SceneLoader : MonoBehaviour
     //}
 
     #endregion
+
+    public void Quit()
+    {
+        // Closes the current application you are running.
+        Application.Quit();
+    }
+
 }
