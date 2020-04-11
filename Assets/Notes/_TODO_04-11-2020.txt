@@ -1,0 +1,27 @@
+[ ] When the ball gets below 10mps, allow the paddle to catch the ball again. 
+[ ] If the ball reaches below 1, and the hasShot variable is still true, ask the player if they would like to try again.
+[ ] If the ball reaches below 1, increase the gravity. Return the gravity back to normal after the speed goes above 1.
+
+
+
+
+
+[ ] Update a variable on the game screen that shows the speeds and whatnot
+
+
+[x] The pause canvas is going to be used after the lose condition because of testing. Deactivate the lose condition and instead use the pause condition for now.
+
+
+[x] Make a script that will handle the Pause and Resume functions.
+
+
+[x] Pause the game if a certain button is pressed.
+
+
+[x] Take out the testing script where you press R to restart the game.
+
+
+[ ] I need to disable the mouse when paused.
+
+
+[ ] Put everything into the SceneLoader script

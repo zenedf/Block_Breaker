@@ -22,7 +22,6 @@ public class Paddle : MonoBehaviour
     [SerializeField] float xMax = 15f;
     #endregion
 
-
     /// <summary>
     /// Update is called once per frame
     /// </summary>
@@ -36,15 +35,12 @@ public class Paddle : MonoBehaviour
         // This variable shows wherever your mouse currently is in relation to the middle of the game window.
         float _mousePositionInUnits = (Input.mousePosition.x / Screen.width) * screenWidthInUnits;
 
-
         // This gets the current X and Y positions of the paddle
         Vector2 _paddlePosition = new Vector2(transform.position.x, transform.position.y);
-
 
         // This will not let the player exit the left or right bounds of the game window.
         // '_mousePositionInUnits' is the particular value we are manipulating.
         _paddlePosition.x = Mathf.Clamp(_mousePositionInUnits, xMin, xMax);
-
 
         // This makes the paddle move
         transform.position = _paddlePosition;

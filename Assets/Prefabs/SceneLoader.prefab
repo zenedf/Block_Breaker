@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8132808138753128440}
-  - component: {fileID: 8132808138753128441}
+  - component: {fileID: 5892094330845648161}
   m_Layer: 0
   m_Name: SceneLoader
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8132808138753128441
+--- !u!114 &5892094330845648161
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,3 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b6504467efb2d5489f6de8e441d9a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseCanvas: {fileID: 2794789501361565744, guid: ca44899250d2d7443a91abc36ed4e94d,
+    type: 3}
+  player: {fileID: 6535125960928479429, guid: ff2484af9a4a888499888f2aad578757, type: 3}
+  script: Paddle.cs
