@@ -2,25 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 /// <summary>
 /// TODO
 /// </summary>
 public class UpdateInformation : MonoBehaviour
 {
-    [SerializeField] TMP_Text txtBlockData;
+    [SerializeField] public TMP_Text txtBlockData;
     //[SerializeField] TMP_Text txtMPS_data;
     //[SerializeField] TMP_Text txtHighMPS_data;
-    [SerializeField] TMP_Text txtMPH_data;
-    [SerializeField] TMP_Text txtHighMPH_data;
+    [SerializeField] public TMP_Text txtMPH_data;
+    [SerializeField] public TMP_Text txtHighMPH_data;
+    [SerializeField] public Ball ballSpeeds;
+    [SerializeField] public SceneLoader sceneLoader;
+    [SerializeField] public Button btnNextLevel;
+
 
     public IList<GameObject> blockList = new List<GameObject>();
 
     public GameObject[] blockArray;
 
     public int blocksLeft = 0;
-
-    public Ball ballSpeeds;
 
     /// <summary>
     /// TODO
@@ -30,7 +33,10 @@ public class UpdateInformation : MonoBehaviour
         // This creates an array of objects in the scene with the tag "Block"
         blockList = GameObject.FindGameObjectsWithTag("Block");
 
+        // Are these necessary?
         ballSpeeds.GetComponent<Ball>();
+        sceneLoader.GetComponent<SceneLoader>();
+        btnNextLevel.GetComponent<Button>();
     }
 
     /// <summary>
@@ -39,6 +45,19 @@ public class UpdateInformation : MonoBehaviour
     private void FixedUpdate()
     {
         DisplayInformation();
+
+        // If the player has beaten the current level
+        if (blocksLeft == 0)
+        {
+            // Turns on the 'btnNextLevel'
+            btnNextLevel.gameObject.SetActive(true);
+
+            // Turns off 'statsPanel'
+            gameObject.SetActive(false);
+
+            // This will pause the game
+            sceneLoader.NextLevelButton();
+        }
     }
 
     /// <summary>
@@ -56,7 +75,7 @@ public class UpdateInformation : MonoBehaviour
     /// <summary>
     /// TODO
     /// </summary>
-    void DisplayInformation()
+    public void DisplayInformation()
     {
         txtBlockData.text = GetRemainingBlocks().ToString();
 

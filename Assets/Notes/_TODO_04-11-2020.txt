@@ -3,14 +3,20 @@
 [ ] If the ball reaches below 1, increase the gravity. Return the gravity back to normal after the speed goes above 1
 
 
-[ ] Fix to where the audio sound doesn't play as soon as the scene starts
+[x] Fix to where the audio sound doesn't play as soon as the scene starts
 
 [ ] Make sure the hierarchy prefabs and the assets prefabs are the same
 
 [ ] Check each scene to make sure they're working
 
-[ ] Make the menus and such more appealing
+[x] Make the menus and such more appealing
 
 [ ] Try to display the top speed on the gameover screen
 
 [x] When the pause menu is displayed, turn off the stats panel
+
+[x] Create a win condition by giving you an option to go to the next level once all the blocks are gone
+
+[x] When the next level button appears, turn off the stats panel
+
+[ ] Make the GUI dynamic

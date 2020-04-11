@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// This handles the scene controls.
@@ -11,19 +12,34 @@ public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private GameObject pauseCanvas;
 
-    [SerializeField] private GameObject playerControls;
+    // This is the Paddle
+    [SerializeField] private GameObject playerControls1;
+
+    // This is the Ball
+    [SerializeField] private GameObject playerControls2;
 
     [SerializeField] private GameObject gameCanvas;
+
+    Ball ball;
+
+    UpdateInformation updateInfo = new UpdateInformation();
 
     public bool ReadyForNextScene { get; private set; }
 
     public bool IsPaused { get; private set; }
+
+    public bool nextLevelButton { get; private set; }
 
     /// <summary>
     /// This runs on start
     /// </summary>
     private void Start()
     {
+        //ball = playerControls2.GetComponent<Ball>(); // TESTING
+        ball = GetComponent<Ball>(); // TESTING
+
+        //updateInfo = GetComponent<UpdateInformation>(); // TESTING
+
         // I think the Start method runs after we load a scene,
         //  so this should work.
         ReadyForNextScene = false;
@@ -42,11 +58,14 @@ public class SceneLoader : MonoBehaviour
             PrepareForNextScene();
         }
 
-        // If the player hit the pause key
-        if (Input.GetKeyDown(KeyCode.Escape) == true)
+        if (nextLevelButton == false)
         {
-            // Check to see if you need to pause or resume the game.
-            PauseOrResumeGame();
+            // If the player hits the pause key
+            if (Input.GetKeyDown(KeyCode.Escape) == true)
+            {
+                // Check to see if you need to pause or resume the game.
+                PauseOrResumeGame();
+            }
         }
     }
 
@@ -92,21 +111,60 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     public void PauseTheGame()
     {
+        // If there is in deed a pauseCanvas
         if (pauseCanvas != null)
         {
             // Turn on the pause menu
             pauseCanvas.SetActive(true);
+
+            // Turn off the game UI
             gameCanvas.SetActive(false);
         }
 
-        if (playerControls != null)
+        // If both the Paddle and Ball objects exist
+        if (playerControls1 != null && playerControls2 != null)
         {
-            // Turn off the player controls
-            playerControls.SetActive(false);
+            // Turn off the Paddle controls
+            playerControls1.SetActive(false);
+
+            // If the game hasn't been started by the player (If the ball is still stuck to the Paddle)
+            if (playerControls2.GetComponent<Ball>().hasShot == false)
+            {
+                // Turn off the Ball controls
+                playerControls2.SetActive(false);
+            }
         }
 
         IsPaused = true;
+        // Pause the game
         Time.timeScale = 0;
+    }
+
+    /// <summary>
+    /// This is for when the player beats a level and the 'Next Level' button is available
+    /// </summary>
+    public void NextLevelButton()
+    {
+        // If both the Paddle and Ball objects exist
+        if (playerControls1 != null && playerControls2 != null)
+        {
+            // Turn off the Paddle controls
+            playerControls1.SetActive(false);
+
+            // Turn off the Ball controls
+            playerControls2.SetActive(false);
+        }
+
+        // These two lines pause everything in the game
+        //playerControls.SetActive(false);
+        // There are two different scripts I need to deactivate to make everything paused, so the above doesn't fully work
+
+
+        // Pause the game
+        Time.timeScale = 0;
+
+        // When true, the NextLevel button is on the screen, and we have disabled the pause button
+        nextLevelButton = true;
     }
 
     /// <summary>
@@ -114,20 +172,35 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     public void ResumeTheGame()
     {
+        // If the Pause Canvas exists
         if (pauseCanvas != null)
         {
             // Turn off the pause menu
             pauseCanvas.SetActive(false);
+            // Turn on the game gui
             gameCanvas.SetActive(true);
         }
 
-        if (playerControls != null)
+        // If these two exist
+        if (playerControls1 != null && playerControls2 != null)
         {
-            // Turn on the player controls
-            playerControls.SetActive(true);
+            // Turn on the Paddle controls
+            playerControls1.SetActive(true);
+            // Turn on the Ball controls
+            playerControls2.SetActive(true);
         }
 
+        // If the NextLevel button is on the screen
+        if (nextLevelButton == true)
+        {
+            // Take the NextLevel button off the screen
+            nextLevelButton = false;
+        }
+
+        // Set IsPaused flag to false
         IsPaused = false;
+
+        // Resume the game
         Time.timeScale = 1;
     }
 

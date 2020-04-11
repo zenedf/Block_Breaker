@@ -2,6 +2,8 @@
 ///[ ] 'LaunchMouseOnClick' method launches the ball a little bit to the right no matter what.
 ///     If moving right at all, shoot ball right. If moving left at all, shoot ball right. Shoot right if stationary.
 ///[x] Add a method that detects the ball's speed.
+///[ ] If the pause menu is on and you click anywhere, then you turn the pause menu off by pressing the escape key, the ball will shoot as soon as the pause menu goes away.
+///     I think you need to not allow the code in the 'Ball.Update' method to run if the pause menu is activated.
 
 using System;
 using System.Collections;
@@ -35,6 +37,9 @@ public class Ball : MonoBehaviour
     // Keeps track of the highest speed in Miles Per Hour
     [SerializeField] float highestSpeedInMph;
 
+    // An array of sound files
+    [SerializeField] AudioClip[] ballSounds;
+
     #endregion
 
     #region States
@@ -46,9 +51,12 @@ public class Ball : MonoBehaviour
     Vector2 paddleToBallVector;
 
     // Has the player shot yet?
-    bool hasShot = false;
+    public bool hasShot = false;
     #endregion
 
+    // Cached component references
+    AudioSource myAudioSource;
+    
     /// <summary>
     /// Start is called before the first frame update
     /// </summary>
@@ -56,6 +64,8 @@ public class Ball : MonoBehaviour
     {
         // The current 'ball' vector minus the current 'paddle' vector.
         paddleToBallVector = transform.position - paddle1.transform.position;
+
+        myAudioSource = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -64,7 +74,7 @@ public class Ball : MonoBehaviour
     void Update()
     {
         // If the player hasn't shot the ball yet
-        if (!hasShot)
+        if (hasShot == false)
         {
             // Lock the ball to the paddle
             LockBallToPaddle();
@@ -72,7 +82,7 @@ public class Ball : MonoBehaviour
             // Shoot the ball when the player clicks the mouse button.
             LaunchOnMouseClick();
         }
-        else if (hasShot) // If the game has begun
+        else if (hasShot == true) // If the game has begun
         {
             // Display speed in mps and mph
             DisplaySpeeds();
@@ -101,7 +111,6 @@ public class Ball : MonoBehaviour
         return (int)highestSpeedInMph;
     }
     #endregion
-
 
     public void DisplaySpeeds()
     {
@@ -193,12 +202,21 @@ public class Ball : MonoBehaviour
     /// <param name="collision">The object that the current object collided with</param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (hasShot)
+        // If the player has initiated the game by shooting the ball
+        if (hasShot == true)
         {
-            GetComponent<AudioSource>().Play();
+            //GetComponent<AudioSource>().Play();
+            // 'PlayOneShot' means that it will play a sound all the way through without being interrupted.
+            //GetComponent<AudioSource>().PlayOneShot(clip);
+
+            #region Playing a block break sound
+            // This creates a variable of an array of audio clips ranging from the first audio clip to the last in the array
+            //AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
+
+            //myAudioSource.PlayOneShot(clip);
+            #endregion
         }
     }
-
 }
 
 /// <summary>

@@ -1481,6 +1481,10 @@ MonoBehaviour:
   txtBlockData: {fileID: 827812355}
   txtMPH_data: {fileID: 2088884030}
   txtHighMPH_data: {fileID: 966188465}
+  ballSpeeds: {fileID: 5731501239280717809, guid: 2ebb06acafc0fe14dbaaba8ee1e50e61,
+    type: 3}
+  sceneLoader: {fileID: 5892094330845648161, guid: 8f0d04d5c2167694d95942e11ec71aa3,
+    type: 3}
+  btnNextLevel: {fileID: 583761364261878259}
   blockArray: []
   blocksLeft: 0
-  ballSpeeds: {fileID: 0}

@@ -44,5 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseCanvas: {fileID: 0}
-  playerControls: {fileID: 0}
+  playerControls1: {fileID: 0}
+  playerControls2: {fileID: 0}
   gameCanvas: {fileID: 0}
