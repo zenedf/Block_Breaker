@@ -37,7 +37,6 @@ public class Ball : MonoBehaviour
 
     #endregion
 
-
     #region States
 
     // An object reference to use the conversions methods
@@ -79,6 +78,29 @@ public class Ball : MonoBehaviour
             DisplaySpeeds();
         }
     }
+
+
+    #region Speed Getters
+    public int GetSpeedInMPS()
+    {
+        return (int)speedInUnitsPerSecond;
+    }
+
+    public int GetSpeedInMPH()
+    {
+        return (int)speedInMilesPerHour;
+    }
+
+    public int GetHighestSpeedInMPS()
+    {
+        return (int)highestSpeedInMps;
+    }
+
+    public int GetHighestSpeedInMPH()
+    {
+        return (int)highestSpeedInMph;
+    }
+    #endregion
 
 
     public void DisplaySpeeds()
