@@ -43,7 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b6504467efb2d5489f6de8e441d9a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseCanvas: {fileID: 2794789501361565744, guid: ca44899250d2d7443a91abc36ed4e94d,
-    type: 3}
-  player: {fileID: 6535125960928479429, guid: ff2484af9a4a888499888f2aad578757, type: 3}
-  script: Paddle.cs
+  pauseCanvas: {fileID: 0}
+  playerControls: {fileID: 0}
+  gameCanvas: {fileID: 0}

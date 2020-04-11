@@ -143,9 +143,6 @@ public class Ball : MonoBehaviour
         if (speedInMilesPerHour >= highestSpeedInMph)
         {
             highestSpeedInMph = conversions.MpsToMph(GetComponent<Rigidbody2D>().velocity.magnitude);
-
-            // TESTING
-            //Debug.Log("Highest speed in MPH = " + highestSpeedInMph);
         }
 
         //TODO

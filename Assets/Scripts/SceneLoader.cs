@@ -13,6 +13,8 @@ public class SceneLoader : MonoBehaviour
 
     [SerializeField] private GameObject playerControls;
 
+    [SerializeField] private GameObject gameCanvas;
+
     public bool ReadyForNextScene { get; private set; }
 
     public bool IsPaused { get; private set; }
@@ -94,6 +96,7 @@ public class SceneLoader : MonoBehaviour
         {
             // Turn on the pause menu
             pauseCanvas.SetActive(true);
+            gameCanvas.SetActive(false);
         }
 
         if (playerControls != null)
@@ -115,6 +118,7 @@ public class SceneLoader : MonoBehaviour
         {
             // Turn off the pause menu
             pauseCanvas.SetActive(false);
+            gameCanvas.SetActive(true);
         }
 
         if (playerControls != null)
