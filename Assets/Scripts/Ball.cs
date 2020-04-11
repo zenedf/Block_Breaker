@@ -22,27 +22,46 @@ public class Ball : MonoBehaviour
 
     // Pushes something 15f unity units per second upward.
     [SerializeField] float yPush = 15f;
+
+
+    // Meters per Second
+    [SerializeField] float speedInUnitsPerSecond;
     
     // Meters per Second
     [SerializeField] float speedInUnitsPerSecond;
     
+
     // Miles Per Hour
     [SerializeField] float speedInMilesPerHour;
 
     // Keeps track of the highest speed in Meters Per Second
+
+    [SerializeField] float highestSpeedInMps;
+
+    // Keeps track of the highest speed in Miles Per Hour
+    [SerializeField] float highestSpeedInMph;
+
     [SerializeField] float highestSpeedInMps = 0f;
 
     // Keeps track of the highest speed in Miles Per Hour
     [SerializeField] float highestSpeedInMph = 0f;
     
+
     #endregion
 
 
     #region States
+
+
+    // An object reference to use the conversions methods
+    Conversions conversions = new Conversions();
+
+
     
     // An object reference to use the conversions methods
     Conversions conversions = new Conversions();
     
+
     // A Vector2 that will used to calculate the distance between the paddle and the ball.
     Vector2 paddleToBallVector;
 
@@ -63,7 +82,7 @@ public class Ball : MonoBehaviour
     /// Update is called once per frame
     /// </summary>
     void Update()
-    {   
+    {
         // If the player hasn't shot the ball yet
         if (!hasShot)
         {
@@ -78,34 +97,69 @@ public class Ball : MonoBehaviour
             // Display speed in mps and mph
             DisplaySpeeds();
         }
+
+    }
+
+
+    public void DisplaySpeeds()
+    {
+        UpdateSpeeds();
+
+        // Then displays them.
+
+
     }
 
     /// <summary>
     /// Display the speeds in the serialized fields
     /// </summary>
-    private void DisplaySpeeds()
+    private void UpdateSpeeds()
     {
         // Update the speed in Meters Per Second every frame
         speedInUnitsPerSecond = GetComponent<Rigidbody2D>().velocity.magnitude;
+
+        if (speedInUnitsPerSecond < 10f)
+        {
+            // TESTING
+            Debug.Log("Speed in MPS = " + speedInUnitsPerSecond);
+        }
 
         // If the current mps is greater than or equal to the highest mps speed so far, update the highest speed.
         if (speedInUnitsPerSecond >= highestSpeedInMps)
         {
             highestSpeedInMps = GetComponent<Rigidbody2D>().velocity.magnitude;
+
+            // TESTING
+            //Debug.Log("Highest speed in MPS = " + highestSpeedInMps);
         }
 
         // Update the speed in Miles Per Hour every frame
         speedInMilesPerHour = conversions.MpsToMph(GetComponent<Rigidbody2D>().velocity.magnitude);
 
+        // TESTING
+        //Debug.Log("Speed in MPH = " + speedInMilesPerHour);
+
         // If the current mph is greater than or equal to the highest mph speed so far, update the highest speed.
         if (speedInMilesPerHour >= highestSpeedInMph)
         {
             highestSpeedInMph = conversions.MpsToMph(GetComponent<Rigidbody2D>().velocity.magnitude);
+
+            // TESTING
+            //Debug.Log("Highest speed in MPH = " + highestSpeedInMph);
         }
 
         //TODO
         //[ ] Display the average speed on both
 
+    }
+
+    /// <summary>
+    /// TESTING
+    /// </summary>
+    public void DisplayFinalSpeeds()
+    {
+        Debug.Log("Highest speed in MPS = " + highestSpeedInMps);
+        Debug.Log("Highest speed in MPH = " + highestSpeedInMph);
     }
 
     /// <summary>
@@ -142,7 +196,10 @@ public class Ball : MonoBehaviour
     /// <param name="collision">The object that the current object collided with</param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        GetComponent<AudioSource>().Play();
+        if (hasShot)
+        {
+            GetComponent<AudioSource>().Play();
+        }
     }
 
 }
