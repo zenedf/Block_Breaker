@@ -49,7 +49,6 @@ public class Ball : MonoBehaviour
 
     #endregion
 
-
     #region States
 
 
@@ -101,6 +100,29 @@ public class Ball : MonoBehaviour
     }
 
 
+    #region Speed Getters
+    public int GetSpeedInMPS()
+    {
+        return (int)speedInUnitsPerSecond;
+    }
+
+    public int GetSpeedInMPH()
+    {
+        return (int)speedInMilesPerHour;
+    }
+
+    public int GetHighestSpeedInMPS()
+    {
+        return (int)highestSpeedInMps;
+    }
+
+    public int GetHighestSpeedInMPH()
+    {
+        return (int)highestSpeedInMph;
+    }
+    #endregion
+
+
     public void DisplaySpeeds()
     {
         UpdateSpeeds();
@@ -143,9 +165,6 @@ public class Ball : MonoBehaviour
         if (speedInMilesPerHour >= highestSpeedInMph)
         {
             highestSpeedInMph = conversions.MpsToMph(GetComponent<Rigidbody2D>().velocity.magnitude);
-
-            // TESTING
-            //Debug.Log("Highest speed in MPH = " + highestSpeedInMph);
         }
 
         //TODO
