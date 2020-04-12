@@ -25,8 +25,8 @@ public class Ball : MonoBehaviour
     // Pushes something 15f unity units per second upward.
     [SerializeField] float yPush = 15f;
 
-    // Meters per Second
-    [SerializeField] float speedInUnitsPerSecond;
+    // Meters per Second (Unity Units per second are roughly the equivalent to Meters Per Second)
+    [SerializeField] float speedInMetersPerSecond;
 
     // Miles Per Hour
     [SerializeField] float speedInMilesPerHour;
@@ -56,7 +56,7 @@ public class Ball : MonoBehaviour
 
     // Cached component references
     AudioSource myAudioSource;
-    
+
     /// <summary>
     /// Start is called before the first frame update
     /// </summary>
@@ -93,7 +93,7 @@ public class Ball : MonoBehaviour
     #region Speed Getters
     public int GetSpeedInMPS()
     {
-        return (int)speedInUnitsPerSecond;
+        return (int)speedInMetersPerSecond;
     }
 
     public int GetSpeedInMPH()
@@ -125,28 +125,24 @@ public class Ball : MonoBehaviour
     private void UpdateSpeeds()
     {
         // Update the speed in Meters Per Second every frame
-        speedInUnitsPerSecond = GetComponent<Rigidbody2D>().velocity.magnitude;
+        // (Unity Units per second are roughly the equivalent to Meters Per Second)
+        // The code below returns how many Unity Units Per Second the 'Rigidbody2D' is traveling.
+        speedInMetersPerSecond = GetComponent<Rigidbody2D>().velocity.magnitude;
 
-        if (speedInUnitsPerSecond < 10f)
+        // If the balls current speed is less than 10.0 meters per second
+        if (speedInMetersPerSecond < 10f)
         {
-            // TESTING
-            Debug.Log("Speed in MPS = " + speedInUnitsPerSecond);
+            // Do something to keep the ball from going to slow
         }
 
         // If the current mps is greater than or equal to the highest mps speed so far, update the highest speed.
-        if (speedInUnitsPerSecond >= highestSpeedInMps)
+        if (speedInMetersPerSecond >= highestSpeedInMps)
         {
             highestSpeedInMps = GetComponent<Rigidbody2D>().velocity.magnitude;
-
-            // TESTING
-            //Debug.Log("Highest speed in MPS = " + highestSpeedInMps);
         }
 
         // Update the speed in Miles Per Hour every frame
         speedInMilesPerHour = conversions.MpsToMph(GetComponent<Rigidbody2D>().velocity.magnitude);
-
-        // TESTING
-        //Debug.Log("Speed in MPH = " + speedInMilesPerHour);
 
         // If the current mph is greater than or equal to the highest mph speed so far, update the highest speed.
         if (speedInMilesPerHour >= highestSpeedInMph)
@@ -164,8 +160,8 @@ public class Ball : MonoBehaviour
     /// </summary>
     public void DisplayFinalSpeeds()
     {
-        Debug.Log("Highest speed in MPS = " + highestSpeedInMps);
-        Debug.Log("Highest speed in MPH = " + highestSpeedInMph);
+        //Debug.Log("Highest speed in MPS = " + highestSpeedInMps);
+        //Debug.Log("Highest speed in MPH = " + highestSpeedInMph);
     }
 
     /// <summary>

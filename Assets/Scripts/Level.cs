@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// All of this is Tutorial Code
+/// Code that handles the level logic
 /// </summary>
 public class Level : MonoBehaviour
 {
@@ -37,10 +37,21 @@ public class Level : MonoBehaviour
     public void BlockDestroyed()
     {
         breakableBlocks--;
+
         if (breakableBlocks <= 0)
         {
-            sceneLoader.LoadNextScene();
+            //sceneLoader.LoadNextScene();
+            sceneLoader.NextLevelButton();
         }
+    }
+
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <returns></returns>
+    public int GetNumberOfBreakableBlocks()
+    {
+        return breakableBlocks;
     }
 
     #endregion Tutorial Code

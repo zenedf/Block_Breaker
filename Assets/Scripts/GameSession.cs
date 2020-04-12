@@ -1,10 +1,15 @@
-﻿using System.Collections;
+﻿///TODO
+///[ ] The 'btnNextLevel' loses the script attached to it after the 1st level. The next button pops up after you beat the second level, but it doesn't do anything at all.
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 /// <summary>
-/// This is from the tutorial
+/// This handles display information for each game session
 /// </summary>
 public class GameSession : MonoBehaviour
 {
@@ -13,15 +18,17 @@ public class GameSession : MonoBehaviour
     // config params
     [Range(0.1f, 10f)] [SerializeField] float gameSpeed = 1f;
     [SerializeField] int pointsPerBlockDestroyed = 83;
-    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI txtScore;
+    [SerializeField] TextMeshProUGUI txtBlockCount;
 
     // state variables
     [SerializeField] int currentScore = 0;
+    [SerializeField] int blocksLeft = 0;
 
-    
 
-    private void Awake()
+    void Awake()
     {
+        // Get a count of how many 'GameSession' objects there are in the current scene
         int _gameStatusCount = FindObjectsOfType<GameSession>().Length;
 
         // If there's already more than 1, destroy yourself
@@ -35,6 +42,7 @@ public class GameSession : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
         }
+
     }
 
     /// <summary>
@@ -42,7 +50,7 @@ public class GameSession : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        scoreText.text = currentScore.ToString();
+        txtScore.text = currentScore.ToString(); // Tutorial
     }
 
     /// <summary>
@@ -50,6 +58,8 @@ public class GameSession : MonoBehaviour
     /// </summary>
     void Update()
     {
+        //blocksLeft = level.GetNumberOfBreakableBlocks(); // THIS WORKS!!!
+
         Time.timeScale = gameSpeed;
     }
 
@@ -59,9 +69,19 @@ public class GameSession : MonoBehaviour
     public void AddToScore()
     {
         currentScore += pointsPerBlockDestroyed;
-        scoreText.text = currentScore.ToString();
+        txtScore.text = currentScore.ToString();
     }
 
+
+    /// <summary>
+    /// TODO
+    /// </summary>
+    public void UpdateBlockData()
+    {
+        blocksLeft = FindObjectOfType<Level>().GetNumberOfBreakableBlocks(); // TESTING
+
+        txtBlockCount.text = blocksLeft.ToString(); // TESTING
+    }
 
     /// <summary>
     /// TODO
@@ -74,6 +94,16 @@ public class GameSession : MonoBehaviour
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// TODO
+    /// </summary>
+    //public void TurnOnNextLevelButton()
+    //{
+    //    //FindObjectOfType<Button>().gameObject.SetActive(true);
+
+    //    Button btn = GameObject.Find("GameSession/GameCanvas/btnNextLevel").GetComponent<Button>();
+    //    btn.gameObject.SetActive(true);
+    //}
 
     #endregion Tutorial Code
 }

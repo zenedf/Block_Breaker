@@ -1,8 +1,4 @@
-﻿///TODO
-///[ ] Figure out why the 'ball' collides with the two boundaries I set up on the left and the right,
-///     but the 'paddle' does not. I have to use 'Mathf.Clamp' to keep the 'paddle' from going off screen.
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

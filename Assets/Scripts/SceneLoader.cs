@@ -14,11 +14,11 @@ public class SceneLoader : MonoBehaviour
 
     //[SerializeField] private GameObject pauseCanvas;
 
-    //// This is the Paddle
-    //[SerializeField] private GameObject playerControls1;
+    // This is the Paddle
+    //[SerializeField] private GameObject paddleControls;
 
-    //// This is the Ball
-    //[SerializeField] private GameObject playerControls2;
+    // This is the Ball
+    //[SerializeField] private GameObject ballControls;
 
     //[SerializeField] private GameObject gameCanvas;
 
@@ -142,32 +142,26 @@ public class SceneLoader : MonoBehaviour
     //    Time.timeScale = 0;
     //}
 
-    ///// <summary>
-    ///// This is for when the player beats a level and the 'Next Level' button is available
-    ///// </summary>
-    //public void NextLevelButton()
-    //{
-    //    // If both the Paddle and Ball objects exist
-    //    if (playerControls1 != null && playerControls2 != null)
-    //    {
-    //        // Turn off the Paddle controls
-    //        playerControls1.SetActive(false);
-
-    //        // Turn off the Ball controls
-    //        playerControls2.SetActive(false);
-    //    }
-
-    //    // These two lines pause everything in the game
-    //    //playerControls.SetActive(false);
-    //    // There are two different scripts I need to deactivate to make everything paused, so the above doesn't fully work
+    /// <summary>
+    /// This is for when the player beats a level and the 'Next Level' button is available
+    /// </summary>
+    public void NextLevelButton()
+    {
+        Paddle _paddle = GameObject.Find("Paddle").GetComponent<Paddle>();
+        _paddle.gameObject.SetActive(false);
 
 
-    //    // Pause the game
-    //    Time.timeScale = 0;
+        Ball _ball = GameObject.Find("Ball").GetComponent<Ball>();
+        _ball.gameObject.SetActive(false);
 
-    //    // When true, the NextLevel button is on the screen, and we have disabled the pause button
-    //    nextLevelButton = true;
-    //}
+
+        Button btn = GameObject.Find("GameSession/GameCanvas/btnNextLevel").GetComponent<Button>();
+        btn.gameObject.SetActive(true);
+
+
+        // Pause the game
+        Time.timeScale = 0;
+    }
 
     ///// <summary>
     ///// Resume the game
@@ -235,13 +229,43 @@ public class SceneLoader : MonoBehaviour
         #endregion My Code
 
 
+        // This is so the Button won't stay on the screen when you start the next scene.
+        if (GameObject.Find("GameSession/GameCanvas/btnNextLevel") == true)
+        {
+            Button btn = GameObject.Find("GameSession/GameCanvas/btnNextLevel").GetComponent<Button>();
+            btn.gameObject.SetActive(false);
+        }
+
 
         // Creates an index of the current active scenes in the 'Edit -> BuildSettings' in Unity
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
+
         // Loads the next scene in the list.
         SceneManager.LoadScene(currentSceneIndex + 1);
     }
+
+    /// <summary>
+    /// Turn the controls back on and turn off the button. Also, unpause the game
+    /// </summary>
+    //public void ResetThingsBeforeLoadingScene()
+    //{
+    //    Paddle _paddle = GameObject.Find("Paddle").GetComponent<Paddle>();
+    //    _paddle.gameObject.SetActive(true);
+
+
+    //    Ball _ball = GameObject.Find("Ball").GetComponent<Ball>();
+    //    _ball.gameObject.SetActive(true);
+
+
+
+    //    Button btn = GameObject.Find("GameSession/GameCanvas/btnNextLevel").GetComponent<Button>();
+    //    btn.gameObject.SetActive(false);
+
+    //    // Resume the game
+    //    Time.timeScale = 1;
+    //}
+
 
     /// <summary>
     /// This loads the first scene in the 'Edit -> BuildSettings'
@@ -254,13 +278,15 @@ public class SceneLoader : MonoBehaviour
 
         #endregion My Code
 
-        // This resets all the game stats of our game session such as our game score
-        FindObjectOfType<GameSession>().ResetGameStats();
-        // Finds the 'GameStatus' script and performs a method
-
-
         // Loads the first/intro/start scene.
         SceneManager.LoadScene(0);
+
+
+        // This resets all the game stats of our game session such as our game score
+        if (GameObject.Find("GameSession") == true)
+        {
+            GameObject.Find("GameSession").GetComponent<GameSession>().ResetGameStats();
+        }
     }
 
     #region My Code
