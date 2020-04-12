@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// All of this is Tutorial Code
+/// </summary>
 public class Level : MonoBehaviour
 {
+    #region Tutorial Code
+
     // parameters
     [SerializeField] int breakableBlocks; // Serialized for debugging purposes
 
@@ -32,9 +37,11 @@ public class Level : MonoBehaviour
     public void BlockDestroyed()
     {
         breakableBlocks--;
-        //if (breakableBlocks <= 0)
-        //{
-        //    sceneLoader.LoadNextScene();
-        //}
+        if (breakableBlocks <= 0)
+        {
+            sceneLoader.LoadNextScene();
+        }
     }
+
+    #endregion Tutorial Code
 }

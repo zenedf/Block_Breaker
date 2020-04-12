@@ -38,12 +38,8 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8132808138753128442}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b6504467efb2d5489f6de8e441d9a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseCanvas: {fileID: 0}
-  playerControls1: {fileID: 0}
-  playerControls2: {fileID: 0}
-  gameCanvas: {fileID: 0}
