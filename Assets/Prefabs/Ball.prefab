@@ -134,16 +134,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea90ba671e1753241b4b24558fea9bf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paddle1: {fileID: 0}
+  paddle1: {fileID: 6535125960928479436, guid: ff2484af9a4a888499888f2aad578757, type: 3}
   xPush: 0
   yPush: 15
-  speedInUnitsPerSecond: 0
+  speedInMetersPerSecond: 0
   speedInMilesPerHour: 0
   highestSpeedInMps: 0
   highestSpeedInMph: 0
   ballSounds: []
-  sceneLoader: {fileID: 5892094330845648161, guid: 8f0d04d5c2167694d95942e11ec71aa3,
-    type: 3}
+  hasShot: 0
 --- !u!82 &5731501239845483585
 AudioSource:
   m_ObjectHideFlags: 0
