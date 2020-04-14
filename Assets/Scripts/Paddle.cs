@@ -9,13 +9,13 @@ public class Paddle : MonoBehaviour
 {
     #region Configuration Parameters
     // Screen width of the current window in units.
-    [SerializeField] float screenWidthInUnits = 16f;
+    [SerializeField] private readonly float screenWidthInUnits = 16f;
 
     // How far left paddle can go.
-    [SerializeField] float xMin = 1f;
+    [SerializeField] private readonly float xMin = 1f;
 
     // How far right the paddle can go.
-    [SerializeField] float xMax = 15f;
+    [SerializeField] private readonly float xMax = 15f;
     #endregion
 
     /// <summary>

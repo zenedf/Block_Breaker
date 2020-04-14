@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class LoseCollider : MonoBehaviour
 {
     // Creates a 'SceneLoader' to load a scene using this script.
-    SceneLoader loader = new SceneLoader();
+    private SceneLoader loader = new SceneLoader();
 
     /// <summary>
     /// When the player's ball drops below a certain height in the level, the 'GameOver' scene is loaded.

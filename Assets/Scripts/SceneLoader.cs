@@ -1,4 +1,7 @@
-﻿using System;
+﻿///TODO
+///[ ] Set up a way to save the previous save data in a variable to display or update later. (Ex. your highest score)
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +13,51 @@ using UnityEngine.UI;
 /// </summary>
 public class SceneLoader : MonoBehaviour
 {
+    // Cached Reference
+
+    //private Button btnNextLevel;
+    //private Paddle paddle;
+    //private Ball ball;
+    //private GameSession gameSession;
+
+    //[SerializeField] private GameObject objBtnNextLevel;
+    [SerializeField] private GameObject objPaddle;
+    [SerializeField] private GameObject objBall;
+    [SerializeField] private GameObject objGameSession;
+
+    [SerializeField] private int intCurrentSceneIndex;
+    [SerializeField] private int intTotalNumberOfScenes;
+
+    private readonly string strBtnNextLevel = "GameSession/GameCanvas/btnNextLevel";
+    private readonly string strBtnQuitGame = "GameSession/GameCanvas/btnQuitGame";
+    private readonly string strPaddle = "Paddle";
+    private readonly string strBall = "Ball";
+    private readonly string strGameOver = "GameOver";
+    private readonly string strGameSession = "GameSession";
+
+    /// <summary>
+    /// Initialize the cached member variables.
+    /// </summary>
+    private void Start()
+    {
+        // Initializing these variables on at the Start method might be a problem.
+        // If it is an issue, just initialize them where they're called in the code.
+
+        //paddle = GameObject.Find(strPaddle).GetComponent<Paddle>();
+        //ball = GameObject.Find(strBall).GetComponent<Ball>();
+        //btnNextLevel = GameObject.Find(strBtnNextLevel).GetComponent<Button>();
+        //gameSession = GameObject.Find(strGameSession).GetComponent<GameSession>();
+
+        objPaddle = GameObject.Find(strPaddle);
+        objBall = GameObject.Find(strBall);
+        //objBtnNextLevel = GameObject.Find(strBtnNextLevel);
+        objGameSession = GameObject.Find(strGameSession);
+
+        //intCurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        //intTotalNumberOfScenes = SceneManager.sceneCountInBuildSettings;
+    }
+
+
     #region My Code
 
     //[SerializeField] private GameObject pauseCanvas;
@@ -142,26 +190,6 @@ public class SceneLoader : MonoBehaviour
     //    Time.timeScale = 0;
     //}
 
-    /// <summary>
-    /// This is for when the player beats a level and the 'Next Level' button is available
-    /// </summary>
-    public void NextLevelButton()
-    {
-        Paddle _paddle = GameObject.Find("Paddle").GetComponent<Paddle>();
-        _paddle.gameObject.SetActive(false);
-
-
-        Ball _ball = GameObject.Find("Ball").GetComponent<Ball>();
-        _ball.gameObject.SetActive(false);
-
-
-        Button btn = GameObject.Find("GameSession/GameCanvas/btnNextLevel").GetComponent<Button>();
-        btn.gameObject.SetActive(true);
-
-
-        // Pause the game
-        Time.timeScale = 0;
-    }
 
     ///// <summary>
     ///// Resume the game
@@ -214,8 +242,42 @@ public class SceneLoader : MonoBehaviour
     #endregion My Code
 
 
-
     #region SceneLoader (Tutorial Code)
+
+
+    /// <summary>
+    /// This is for when the player beats a level and the 'Next Level' button is available.
+    /// The player controls are deactivated, the game is paused, the 'NextLevel' button is visible, and you can see your cursor so you can click the next button.
+    /// </summary>
+    public void NextLevelAndQuitButtons()
+    {
+        // Disable the player controlled paddle
+        // GameObject.Find(strPaddle).GetComponent<Paddle>().gameObject.SetActive(false);
+        //objPaddle.GetComponent<Paddle>().gameObject.SetActive(false);
+        //objPaddle.gameObject.SetActive(false);
+        objPaddle.SetActive(false);
+
+        // Disable the ball
+        // GameObject.Find(strBall).GetComponent<Ball>().gameObject.SetActive(false);
+        //objBall.GetComponent<Ball>().gameObject.SetActive(false);
+        //objBall.gameObject.SetActive(false);
+        objBall.SetActive(false);
+
+        // Enables the NextLevel button
+        // GameObject.Find(strBtnNextLevel).GetComponent<Button>().gameObject.SetActive(true);
+        // objBtnNextLevel.GetComponent<Button>().gameObject.SetActive(true);
+        //objBtnNextLevel.gameObject.SetActive(true);
+        //objBtnNextLevel.SetActive(true);
+        GameObject.Find(strBtnNextLevel).SetActive(true);
+        GameObject.Find(strBtnQuitGame).SetActive(true);
+
+        // Makes the cursor visible
+        Cursor.visible = true;
+
+        // Pause the game
+        Time.timeScale = 0;
+    }
+
 
     /// <summary>
     /// This loads the next scene based on it's index.
@@ -228,21 +290,59 @@ public class SceneLoader : MonoBehaviour
 
         #endregion My Code
 
-
-        // This is so the Button won't stay on the screen when you start the next scene.
-        if (GameObject.Find("GameSession/GameCanvas/btnNextLevel") == true)
+        // If the next level button can be active, make it inactive.
+        // This is to prevent it being active before the next scene,
+        //   and if it isn't in the scene, it won't throw a null reference exception.
+        if (GameObject.Find(strBtnNextLevel) == true)
         {
-            Button btn = GameObject.Find("GameSession/GameCanvas/btnNextLevel").GetComponent<Button>();
-            btn.gameObject.SetActive(false);
+            GameObject.Find(strBtnNextLevel).GetComponent<Button>().gameObject.SetActive(false);
+            GameObject.Find(strBtnQuitGame).GetComponent<Button>().gameObject.SetActive(false);
         }
 
 
-        // Creates an index of the current active scenes in the 'Edit -> BuildSettings' in Unity
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        #region None of this worked
+        // GameObject.Find("name") only returns active GameObjects. If no GameObject with "name" can be found, null is returned.
 
+        // Make the button inactive
+        // GameObject.Find(strBtnNextLevel).GetComponent<Button>().gameObject.SetActive(false);
+        //objBtnNextLevel.GetComponent<Button>().gameObject.SetActive(false);
+        //objBtnNextLevel.gameObject.SetActive(true);
+        //objBtnNextLevel.SetActive(true);
+
+        //if (objBtnNextLevel != false)
+        //{
+        //    objBtnNextLevel.GetComponent<Button>().gameObject.SetActive(false);
+        //}
+        //else if (objBtnNextLevel != null)
+        //{
+        //    Debug.Log(objBtnNextLevel);
+        //}
+        //else
+        //{
+        //    Debug.Log(objBtnNextLevel);
+        //}
+
+        // This code checks to see if the 'btnNextLevel' is in the scene hierarchy
+        // If it is, then make it inactive.
+        //if (btnNextLevel == true)
+        //{
+        //    //Button btn = GameObject.Find("GameSession/GameCanvas/btnNextLevel").GetComponent<Button>();
+        //    //btn.gameObject.SetActive(false);
+        //    btnNextLevel.gameObject.SetActive(false);
+        //} 
+        #endregion
+
+        // Creates an index of the current active scenes in the 'Edit -> BuildSettings' in Unity
+        intCurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // if the next scene isn't going to be the GameOver scene
+        if (intCurrentSceneIndex + 1 != SceneManager.sceneCountInBuildSettings - 1)
+        {
+            Cursor.visible = false;
+        }
 
         // Loads the next scene in the list.
-        SceneManager.LoadScene(currentSceneIndex + 1);
+        SceneManager.LoadScene(intCurrentSceneIndex + 1);
     }
 
     /// <summary>
@@ -278,16 +378,24 @@ public class SceneLoader : MonoBehaviour
 
         #endregion My Code
 
+
+        // Makes the cursor visible
+        Cursor.visible = true;
+
         // Loads the first/intro/start scene.
         SceneManager.LoadScene(0);
 
 
-        // This resets all the game stats of our game session such as our game score
-        if (GameObject.Find("GameSession") == true)
+        // If the user played this game before going back to the start menu, erase the previous data.
+        if (objGameSession == true) // GameObject.Find(gameSession);
         {
-            GameObject.Find("GameSession").GetComponent<GameSession>().ResetGameStats();
+            // This resets all the game stats of our game session. (Ex. our game score)
+            //GameObject.Find(strGameSession).GetComponent<GameSession>().ResetGameStats();
+            objGameSession.GetComponent<GameSession>().ResetGameStats();
+            //objGameSession.ResetGameStats();
         }
     }
+
 
     #region My Code
 
@@ -296,12 +404,15 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     public void LoadGameOverScene()
     {
-
         //ReadyForNextScene = true;
 
+        // Makes the cursor visible
+        Cursor.visible = true;
+
         // Loads the 'GameOver' scene.
-        SceneManager.LoadScene("GameOver");
+        SceneManager.LoadScene(strGameOver);
     }
+
 
     #endregion My Code
 
@@ -313,6 +424,7 @@ public class SceneLoader : MonoBehaviour
         // Closes the current application you are running.
         Application.Quit();
     }
+
 
     #endregion SceneLoader (Tutorial Code)
 }

@@ -9,10 +9,10 @@ public class Level : MonoBehaviour
 {
     #region Tutorial Code
 
-    // parameters
+    // Configuration Parameters
     [SerializeField] int breakableBlocks; // Serialized for debugging purposes
 
-    // cached reference
+    // Cached Reference
     SceneLoader sceneLoader;
 
     /// <summary>
@@ -20,6 +20,10 @@ public class Level : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        // This confines the cursor to the game menu
+        Cursor.lockState = CursorLockMode.Confined;
+        // I don't know if this will disable player movement.
+
         sceneLoader = FindObjectOfType<SceneLoader>();
     }
 
@@ -41,7 +45,7 @@ public class Level : MonoBehaviour
         if (breakableBlocks <= 0)
         {
             //sceneLoader.LoadNextScene();
-            sceneLoader.NextLevelButton();
+            sceneLoader.NextLevelAndQuitButtons();
         }
     }
 
