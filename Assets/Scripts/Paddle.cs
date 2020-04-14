@@ -23,6 +23,9 @@ public class Paddle : MonoBehaviour
     /// </summary>
     void Update()
     {
+        //Debug.Log("Paddle.Update()");
+
+
         // 'Screen.width' shows the current width of the screen window in pixels.
         // We know that there are currently 16 units. We have 16 Unity units from left to right due to how we set up the camera.
         // (Camera is the size of 6, which is the vertical. That means the total vertical is 12.)
@@ -40,5 +43,27 @@ public class Paddle : MonoBehaviour
 
         // This makes the paddle move
         transform.position = _paddlePosition;
+
+
+        #region Testing pressing the pause key in Paddle.cs
+
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+
+        //    Debug.Log("I have pressed escape");
+
+        //    // If the game is currently paused
+        //    if (Time.timeScale == 0)
+        //    {
+        //        sceneLoader.ResumeTheGame();
+        //    }
+        //    // If the game is currently playing
+        //    if (Time.timeScale == 1)
+        //    {
+        //        sceneLoader.PauseTheGame();
+        //    }
+        //}
+
+        #endregion
     }
 }

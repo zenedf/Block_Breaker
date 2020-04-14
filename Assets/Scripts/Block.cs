@@ -21,6 +21,9 @@ public class Block : MonoBehaviour
     /// </summary>
     private void Start()  // Comment this out later.This is just an example.
     {
+        //Debug.Log("Block.Start()");
+
+
         // Holy cow I can't believe it was that easy to do this programmatically.
         // I approached this all wrong and after a long time of not being able to figure it out I gave up and put certain things in the same script.
         level = FindObjectOfType<Level>(); // Tutorial Code
@@ -39,6 +42,9 @@ public class Block : MonoBehaviour
     /// <param name="_collision">The object that the ball collided with</param>
     private void OnCollisionEnter2D(Collision2D _collision)
     {
+        //Debug.Log("Block.OnCollisionEnter2D(Collision2D _collision)");
+
+
         #region Testing purposes
         // This is for testing purposes.
         // This prints the name of the object that is colliding with this(Block) object.
@@ -56,6 +62,9 @@ public class Block : MonoBehaviour
     /// </summary>
     private void DestroyBlock()
     {
+        //Debug.Log("Block.DestroyBlock()");
+
+
         // This is what they showed in the tutorials
         FindObjectOfType<GameSession>().AddToScore();
 

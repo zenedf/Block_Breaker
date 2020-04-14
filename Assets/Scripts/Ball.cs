@@ -62,6 +62,9 @@ public class Ball : MonoBehaviour
     /// </summary>
     void Start()
     {
+        //Debug.Log("Ball.Start()");
+
+
         // The current 'ball' vector minus the current 'paddle' vector.
         paddleToBallVector = transform.position - paddle1.transform.position;
 
@@ -73,6 +76,9 @@ public class Ball : MonoBehaviour
     /// </summary>
     void Update()
     {
+        //Debug.Log("Ball.Update()");
+
+
         // If the player hasn't shot the ball yet
         if (hasShot == false)
         {
@@ -89,31 +95,45 @@ public class Ball : MonoBehaviour
         }
     }
 
-
     #region Speed Getters
     public int GetSpeedInMPS()
     {
+        //Debug.Log("Ball.GetSpeedInMPS()");
+
+
         return (int)speedInMetersPerSecond;
     }
 
     public int GetSpeedInMPH()
     {
+        //Debug.Log("Ball.GetSpeedInMPH()");
+
+
         return (int)speedInMilesPerHour;
     }
 
     public int GetHighestSpeedInMPS()
     {
+        //Debug.Log("Ball.GetHighestSpeedInMPS()");
+
+
         return (int)highestSpeedInMps;
     }
 
     public int GetHighestSpeedInMPH()
     {
+        //Debug.Log("Ball.GetHighestSpeedInMPH()");
+
+
         return (int)highestSpeedInMph;
     }
     #endregion
 
     public void DisplaySpeeds()
     {
+        //Debug.Log("Ball.DisplaySpeeds()");
+
+
         UpdateSpeeds();
 
         // Then displays them.
@@ -124,6 +144,9 @@ public class Ball : MonoBehaviour
     /// </summary>
     private void UpdateSpeeds()
     {
+        //Debug.Log("Ball.UpdateSpeeds()");
+
+
         // Update the speed in Meters Per Second every frame
         // (Unity Units per second are roughly the equivalent to Meters Per Second)
         // The code below returns how many Unity Units Per Second the 'Rigidbody2D' is traveling.
@@ -160,6 +183,9 @@ public class Ball : MonoBehaviour
     /// </summary>
     public void DisplayFinalSpeeds()
     {
+        //Debug.Log("Ball.DisplayFinalSpeeds()");
+
+
         //Debug.Log("Highest speed in MPS = " + highestSpeedInMps);
         //Debug.Log("Highest speed in MPH = " + highestSpeedInMph);
     }
@@ -169,6 +195,9 @@ public class Ball : MonoBehaviour
     /// </summary>
     private void LaunchOnMouseClick()
     {
+        //Debug.Log("Ball.LaunchOnMouseClick()");
+
+
         // If the user clicks the primary(left) mouse button.
         if (Input.GetMouseButtonDown(0))
         {
@@ -185,6 +214,9 @@ public class Ball : MonoBehaviour
     /// </summary>
     private void LockBallToPaddle()
     {
+        //Debug.Log("Ball.LockBallToPaddle()");
+
+
         // The current X and Y position of the paddle.
         Vector2 _paddlePosition = new Vector2(paddle1.transform.position.x, paddle1.transform.position.y);
 
@@ -198,6 +230,9 @@ public class Ball : MonoBehaviour
     /// <param name="collision">The object that the current object collided with</param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //Debug.Log("Ball.OnCollisionEnter2D(Collision2D collision)");
+
+
         // If the player has initiated the game by shooting the ball
         if (hasShot == true)
         {
