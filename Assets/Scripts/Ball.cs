@@ -4,6 +4,7 @@
 ///[x] Add a method that detects the ball's speed.
 ///[ ] If the pause menu is on and you click anywhere, then you turn the pause menu off by pressing the escape key, the ball will shoot as soon as the pause menu goes away.
 ///     I think you need to not allow the code in the 'Ball.Update' method to run if the pause menu is activated.
+///[ ] Display the average speed on both
 
 using System;
 using System.Collections;
@@ -24,8 +25,7 @@ public class Ball : MonoBehaviour
 
     // Pushes something 15f unity units per second upward.
     [SerializeField] float yPush = 15f;
-
-
+    
     // Meters per Second (Unity Units per second are roughly the equivalent to Meters Per Second)
     [SerializeField] float speedInMetersPerSecond;
 
@@ -38,7 +38,6 @@ public class Ball : MonoBehaviour
     // Keeps track of the highest speed in Miles Per Hour
     [SerializeField] float highestSpeedInMph;
 
-
     // An array of sound files
     [SerializeField] AudioClip[] ballSounds;
 
@@ -46,16 +45,15 @@ public class Ball : MonoBehaviour
 
     #region States
 
-
     // An object reference to use the conversions methods
     Conversions conversions = new Conversions();
-
 
     // A Vector2 that will used to calculate the distance between the paddle and the ball.
     Vector2 paddleToBallVector;
 
     // Has the player shot yet?
     public bool hasShot = false;
+    
     #endregion
 
     // Cached component references
@@ -66,12 +64,10 @@ public class Ball : MonoBehaviour
     /// </summary>
     void Start()
     {
-        //Debug.Log("Ball.Start()");
-
-
         // The current 'ball' vector minus the current 'paddle' vector.
         paddleToBallVector = transform.position - paddle1.transform.position;
 
+        // Initialize the cached audio component
         myAudioSource = GetComponent<AudioSource>();
     }
 
@@ -80,9 +76,6 @@ public class Ball : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //Debug.Log("Ball.Update()");
-
-
         // If the player hasn't shot the ball yet
         if (hasShot == false)
         {
@@ -97,53 +90,51 @@ public class Ball : MonoBehaviour
             // Display speed in mps and mph
             DisplaySpeeds();
         }
-
     }
 
     #region Speed Getters
+    
+    
+    /// <summary>
+    /// Return current ball speed in meters per second
+    /// </summary>
     public int GetSpeedInMPS()
     {
-        //Debug.Log("Ball.GetSpeedInMPS()");
-
-
         return (int)speedInMetersPerSecond;
     }
 
+    /// <summary>
+    /// Return current ball speed in miles per hour
+    /// </summary>
     public int GetSpeedInMPH()
     {
-        //Debug.Log("Ball.GetSpeedInMPH()");
-
-
         return (int)speedInMilesPerHour;
     }
 
+    /// <summary>
+    /// Return the highest speed your ball has reached in meters per second for the particular game session
+    /// </summary>
     public int GetHighestSpeedInMPS()
     {
-        //Debug.Log("Ball.GetHighestSpeedInMPS()");
-
-
         return (int)highestSpeedInMps;
     }
 
+    /// <summary>
+    /// Return the highest speed your ball has reached in miles per hour for the particular game session
+    /// </summary>
     public int GetHighestSpeedInMPH()
     {
-        //Debug.Log("Ball.GetHighestSpeedInMPH()");
-
-
-        return (int)highestSpeedInMph;
+         return (int)highestSpeedInMph;
     }
+    
     #endregion
 
+    /// <summary>
+    /// Update the speed information and display it.
+    /// </summary>
     public void DisplaySpeeds()
     {
-        //Debug.Log("Ball.DisplaySpeeds()");
-
-
         UpdateSpeeds();
-
-        // Then displays them.
-
-
     }
 
     /// <summary>
@@ -151,9 +142,6 @@ public class Ball : MonoBehaviour
     /// </summary>
     private void UpdateSpeeds()
     {
-        //Debug.Log("Ball.UpdateSpeeds()");
-
-
         // Update the speed in Meters Per Second every frame
         // (Unity Units per second are roughly the equivalent to Meters Per Second)
         // The code below returns how many Unity Units Per Second the 'Rigidbody2D' is traveling.
@@ -162,7 +150,7 @@ public class Ball : MonoBehaviour
         // If the balls current speed is less than 10.0 meters per second
         if (speedInMetersPerSecond < 10f)
         {
-            // Do something to keep the ball from going to slow
+            // Do something to keep the ball from going too slow
         }
 
         // If the current mps is greater than or equal to the highest mps speed so far, update the highest speed.
@@ -179,20 +167,13 @@ public class Ball : MonoBehaviour
         {
             highestSpeedInMph = conversions.MpsToMph(GetComponent<Rigidbody2D>().velocity.magnitude);
         }
-
-        //TODO
-        //[ ] Display the average speed on both
-
     }
 
     /// <summary>
-    /// TESTING
+    /// Display the your final speed stats at the end of the game session
     /// </summary>
     public void DisplayFinalSpeeds()
     {
-        //Debug.Log("Ball.DisplayFinalSpeeds()");
-
-
         //Debug.Log("Highest speed in MPS = " + highestSpeedInMps);
         //Debug.Log("Highest speed in MPH = " + highestSpeedInMph);
     }
@@ -202,9 +183,6 @@ public class Ball : MonoBehaviour
     /// </summary>
     private void LaunchOnMouseClick()
     {
-        //Debug.Log("Ball.LaunchOnMouseClick()");
-
-
         // If the user clicks the primary(left) mouse button.
         if (Input.GetMouseButtonDown(0))
         {
@@ -221,9 +199,6 @@ public class Ball : MonoBehaviour
     /// </summary>
     private void LockBallToPaddle()
     {
-        //Debug.Log("Ball.LockBallToPaddle()");
-
-
         // The current X and Y position of the paddle.
         Vector2 _paddlePosition = new Vector2(paddle1.transform.position.x, paddle1.transform.position.y);
 
@@ -237,9 +212,6 @@ public class Ball : MonoBehaviour
     /// <param name="collision">The object that the current object collided with</param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Debug.Log("Ball.OnCollisionEnter2D(Collision2D collision)");
-
-
         // If the player has initiated the game by shooting the ball
         if (hasShot == true)
         {
@@ -263,15 +235,11 @@ public class Ball : MonoBehaviour
 public class Conversions
 {
     /// <summary>
-    /// TODO
+    /// Ths takes in distance and time to calculate velocity in meters per second
     /// </summary>
-    /// <param name="_meters"></param>
-    /// <param name="_seconds"></param>
-    /// <param name="_distance"></param>
-    /// <param name="_time"></param>
-    /// <returns></returns>
-    //public float MetersPerSecond(float _meters, float _seconds, float _distance, float _time)
-    //{
+    /// <param name="_meters">distance in meters</param>
+    /// <param name="_time">time in seconds</param>
+    /// <returns>returns the velocity/speed depending on your inputs</returns>
     public float MetersPerSecond(float _meters, float _seconds)
     {
         // Meters per second
@@ -306,7 +274,7 @@ public class Conversions
     /// </summary>
     /// <param name="_meters"></param>
     /// <param name="_time"></param>
-    /// <returns></returns>
+    /// <returns>s</returns>
     public float MpsToMph(float _velocity)
     {
         float _mph = 0f;
