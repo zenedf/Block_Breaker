@@ -3,30 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// TODO
+/// This handles the block logic
 /// </summary>
 public class Block : MonoBehaviour
 {
-    #region Tutorial Code
-
-    // I commented this out because I hate the sounds on the game
+    #region Cached References
+    // This is so I can use the Level object with the scripts and methods attached to it.
+    Level level;
+    
+    // This will be the sound played when a block breaks
     //[SerializeField] AudioClip breakSound;
-
-    // cached reference
-    Level level; // Tutorial Code
-
+    #endregion 
+    
     /// <summary>
-    /// This is a much easier way of counting the current blocks on the screen
-    /// This was shown to me on a tutorial
+    /// This run when a block is instantiated and is used to count the blocks
     /// </summary>
-    private void Start()  // Comment this out later.This is just an example.
+    private void Start()
     {
-        // Holy cow I can't believe it was that easy to do this programmatically.
-        // I approached this all wrong and after a long time of not being able to figure it out I gave up and put certain things in the same script.
         level = FindObjectOfType<Level>(); // Tutorial Code
         //gameSession = FindObjectOfType<GameSession>();
 
-        level.CountBreakableBlocks(); // Tutorial Code
+        level.CountBreakableBlocks();
 
         #region BAD CODE!!! Keep it to learn from mistakes.
         // This code caused the remaining bricks to always be at zero after the first level.
@@ -36,7 +33,6 @@ public class Block : MonoBehaviour
         #endregion
     }
 
-    #endregion Tutorial Code
 
     /// <summary>
     /// When a ball makes contact with a block, the block gets destroyed.
@@ -44,11 +40,7 @@ public class Block : MonoBehaviour
     /// <param name="_collision">The object that the ball collided with</param>
     private void OnCollisionEnter2D(Collision2D _collision)
     {
-        //Debug.Log("Block.OnCollisionEnter2D(Collision2D _collision)");
-
-
         #region Testing purposes
-        // This is for testing purposes.
         // This prints the name of the object that is colliding with this(Block) object.
         //Debug.Log(collision.gameObject.name);
         #endregion
@@ -58,15 +50,11 @@ public class Block : MonoBehaviour
     }
 
 
-    #region Tutorial Code
     /// <summary>
-    /// TODO
+    /// This adds to the final score and destroys the current block that has been hit.
     /// </summary>
     private void DestroyBlock()
     {
-        //Debug.Log("Block.DestroyBlock()");
-
-
         // This is what they showed in the tutorials
         FindObjectOfType<GameSession>().AddToScore();
 
@@ -82,9 +70,8 @@ public class Block : MonoBehaviour
         // Check to see if there are any more blocks left in the current level
         level.BlockDestroyed();
 
-        //FindObjectOfType<GameSession>().UpdateBlockData(); // TESTING
-        // I might be scrapping that too!
+        #region This caused issues
+        //FindObjectOfType<GameSession>().UpdateBlockData();
+        #endregion
     }
-
-    #endregion Tutorial Code
 }
