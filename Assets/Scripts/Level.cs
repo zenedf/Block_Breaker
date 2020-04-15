@@ -20,11 +20,8 @@ public class Level : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        //Debug.Log("Level.Start()");
-
-
         // This confines the cursor to the game menu
-        Cursor.lockState = CursorLockMode.Confined;
+        //Cursor.lockState = CursorLockMode.Confined; // TESTING
         // I don't know if this will disable player movement.
 
         sceneLoader = FindObjectOfType<SceneLoader>();
@@ -35,9 +32,6 @@ public class Level : MonoBehaviour
     /// </summary>
     public void CountBreakableBlocks()
     {
-        //Debug.Log("Level.CountBreakableBlocks()");
-
-
         breakableBlocks++;
     }
 
@@ -46,9 +40,6 @@ public class Level : MonoBehaviour
     /// </summary>
     public void BlockDestroyed()
     {
-        //Debug.Log("Level.BlockDestroyed()");
-
-
         breakableBlocks--;
 
         if (breakableBlocks <= 0)
@@ -64,9 +55,6 @@ public class Level : MonoBehaviour
     /// <returns></returns>
     public int GetNumberOfBreakableBlocks()
     {
-        //Debug.Log("Level.GetNumberOfBreakableBlocks()");
-
-
         return breakableBlocks;
     }
 

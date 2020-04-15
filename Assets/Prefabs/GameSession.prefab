@@ -928,11 +928,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSpeed: 1
-  pointsPerBlockDestroyed: 83
+  pointsPerBlockDestroyed: 10
   txtScore: {fileID: 5699354341759926934}
   txtBlockCount: {fileID: 1004187602198175944}
   currentScore: 0
   blocksLeft: 0
+  isPausable_GameSession: 0
 --- !u!1 &5699354341759926936
 GameObject:
   m_ObjectHideFlags: 0

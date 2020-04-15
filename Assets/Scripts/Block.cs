@@ -21,9 +21,6 @@ public class Block : MonoBehaviour
     /// </summary>
     private void Start()  // Comment this out later.This is just an example.
     {
-        //Debug.Log("Block.Start()");
-
-
         // Holy cow I can't believe it was that easy to do this programmatically.
         // I approached this all wrong and after a long time of not being able to figure it out I gave up and put certain things in the same script.
         level = FindObjectOfType<Level>(); // Tutorial Code
@@ -31,7 +28,12 @@ public class Block : MonoBehaviour
 
         level.CountBreakableBlocks(); // Tutorial Code
 
-        FindObjectOfType<GameSession>().UpdateBlockData(); // TESTING
+        #region BAD CODE!!! Keep it to learn from mistakes.
+        // This code caused the remaining bricks to always be at zero after the first level.
+        //FindObjectOfType<GameSession>().UpdateBlockData(); // TESTING
+        // Was it because I called the UpdateBlockData()? or was it because I instantiated it at that particular spot?
+        // Who knows??
+        #endregion
     }
 
     #endregion Tutorial Code
@@ -80,7 +82,8 @@ public class Block : MonoBehaviour
         // Check to see if there are any more blocks left in the current level
         level.BlockDestroyed();
 
-        FindObjectOfType<GameSession>().UpdateBlockData(); // TESTING
+        //FindObjectOfType<GameSession>().UpdateBlockData(); // TESTING
+        // I might be scrapping that too!
     }
 
     #endregion Tutorial Code

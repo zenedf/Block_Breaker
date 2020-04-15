@@ -21,7 +21,12 @@
 [-] Cache all of the GameObject.Find that I am able to. It is bad on performance to run that command every frame.
 [x] When LoadNextScene() is used, disable the mouse cursor. [ ] The cursor only disables it after the first level. Fix it.
 [ ] Make more levels
-[] Test the cursor settings you set up in an actual build. The inspector won't recognize the cursor lock.
+[x] Test the cursor settings you set up in an actual build. The inspector won't recognize the cursor lock.
+
+[ ] In the GameSession.UpdateBlockData() method, I'm using a 'FindObjectOfType'. I need to cache that up top due to performance.
+[ ] I need to disable all the code involved in the MPS and MPH. A lot of it is on the Ball.cs script and I had completely forgotten about it.
+
+[ ] Maybe we should only have the SceneLoader object load scenes. I'm thinking about making a whole new script to handle pausing. (Pausing is a state. Like Running. Maybe have a script that determines whether the game is paused or not.)
 
 
 TODO Once the game is ready for completion:

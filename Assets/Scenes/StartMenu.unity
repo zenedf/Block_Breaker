@@ -429,7 +429,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7271165182735622538, guid: d6b3a9138ee29a94aa989f359f92cb1b,
           type: 3}
-        m_MethodName: LoadNextScene
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
