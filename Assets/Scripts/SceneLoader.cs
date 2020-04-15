@@ -271,9 +271,10 @@ public class SceneLoader : MonoBehaviour
     /// <summary>
     /// This closes the application
     /// </summary>
+
     public void QuitGame() // Tutorial Code
     {
-        // Closes the current application you are running.
-        Application.Quit();
-    }
+       // Closes the current application you are running.
+       Application.Quit();
+     }
 }
