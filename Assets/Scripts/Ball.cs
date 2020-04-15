@@ -2,6 +2,8 @@
 ///[ ] 'LaunchMouseOnClick' method launches the ball a little bit to the right no matter what.
 ///     If moving right at all, shoot ball right. If moving left at all, shoot ball right. Shoot right if stationary.
 ///[x] Add a method that detects the ball's speed.
+///[ ] If the pause menu is on and you click anywhere, then you turn the pause menu off by pressing the escape key, the ball will shoot as soon as the pause menu goes away.
+///     I think you need to not allow the code in the 'Ball.Update' method to run if the pause menu is activated.
 
 using System;
 using System.Collections;
@@ -24,28 +26,21 @@ public class Ball : MonoBehaviour
     [SerializeField] float yPush = 15f;
 
 
-    // Meters per Second
-    [SerializeField] float speedInUnitsPerSecond;
-    
-    // Meters per Second
-    [SerializeField] float speedInUnitsPerSecond;
-    
+    // Meters per Second (Unity Units per second are roughly the equivalent to Meters Per Second)
+    [SerializeField] float speedInMetersPerSecond;
 
     // Miles Per Hour
     [SerializeField] float speedInMilesPerHour;
 
     // Keeps track of the highest speed in Meters Per Second
-
     [SerializeField] float highestSpeedInMps;
 
     // Keeps track of the highest speed in Miles Per Hour
     [SerializeField] float highestSpeedInMph;
 
-    [SerializeField] float highestSpeedInMps = 0f;
 
-    // Keeps track of the highest speed in Miles Per Hour
-    [SerializeField] float highestSpeedInMph = 0f;
-    
+    // An array of sound files
+    [SerializeField] AudioClip[] ballSounds;
 
     #endregion
 
@@ -56,25 +51,28 @@ public class Ball : MonoBehaviour
     Conversions conversions = new Conversions();
 
 
-    
-    // An object reference to use the conversions methods
-    Conversions conversions = new Conversions();
-    
-
     // A Vector2 that will used to calculate the distance between the paddle and the ball.
     Vector2 paddleToBallVector;
 
     // Has the player shot yet?
-    bool hasShot = false;
+    public bool hasShot = false;
     #endregion
+
+    // Cached component references
+    AudioSource myAudioSource;
 
     /// <summary>
     /// Start is called before the first frame update
     /// </summary>
     void Start()
     {
+        //Debug.Log("Ball.Start()");
+
+
         // The current 'ball' vector minus the current 'paddle' vector.
         paddleToBallVector = transform.position - paddle1.transform.position;
+
+        myAudioSource = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -82,8 +80,11 @@ public class Ball : MonoBehaviour
     /// </summary>
     void Update()
     {
+        //Debug.Log("Ball.Update()");
+
+
         // If the player hasn't shot the ball yet
-        if (!hasShot)
+        if (hasShot == false)
         {
             // Lock the ball to the paddle
             LockBallToPaddle();
@@ -91,7 +92,7 @@ public class Ball : MonoBehaviour
             // Shoot the ball when the player clicks the mouse button.
             LaunchOnMouseClick();
         }
-        else if (hasShot) // If the game has begun
+        else if (hasShot == true) // If the game has begun
         {
             // Display speed in mps and mph
             DisplaySpeeds();
@@ -99,32 +100,45 @@ public class Ball : MonoBehaviour
 
     }
 
-
     #region Speed Getters
     public int GetSpeedInMPS()
     {
-        return (int)speedInUnitsPerSecond;
+        //Debug.Log("Ball.GetSpeedInMPS()");
+
+
+        return (int)speedInMetersPerSecond;
     }
 
     public int GetSpeedInMPH()
     {
+        //Debug.Log("Ball.GetSpeedInMPH()");
+
+
         return (int)speedInMilesPerHour;
     }
 
     public int GetHighestSpeedInMPS()
     {
+        //Debug.Log("Ball.GetHighestSpeedInMPS()");
+
+
         return (int)highestSpeedInMps;
     }
 
     public int GetHighestSpeedInMPH()
     {
+        //Debug.Log("Ball.GetHighestSpeedInMPH()");
+
+
         return (int)highestSpeedInMph;
     }
     #endregion
 
-
     public void DisplaySpeeds()
     {
+        //Debug.Log("Ball.DisplaySpeeds()");
+
+
         UpdateSpeeds();
 
         // Then displays them.
@@ -137,29 +151,28 @@ public class Ball : MonoBehaviour
     /// </summary>
     private void UpdateSpeeds()
     {
-        // Update the speed in Meters Per Second every frame
-        speedInUnitsPerSecond = GetComponent<Rigidbody2D>().velocity.magnitude;
+        //Debug.Log("Ball.UpdateSpeeds()");
 
-        if (speedInUnitsPerSecond < 10f)
+
+        // Update the speed in Meters Per Second every frame
+        // (Unity Units per second are roughly the equivalent to Meters Per Second)
+        // The code below returns how many Unity Units Per Second the 'Rigidbody2D' is traveling.
+        speedInMetersPerSecond = GetComponent<Rigidbody2D>().velocity.magnitude;
+
+        // If the balls current speed is less than 10.0 meters per second
+        if (speedInMetersPerSecond < 10f)
         {
-            // TESTING
-            Debug.Log("Speed in MPS = " + speedInUnitsPerSecond);
+            // Do something to keep the ball from going to slow
         }
 
         // If the current mps is greater than or equal to the highest mps speed so far, update the highest speed.
-        if (speedInUnitsPerSecond >= highestSpeedInMps)
+        if (speedInMetersPerSecond >= highestSpeedInMps)
         {
             highestSpeedInMps = GetComponent<Rigidbody2D>().velocity.magnitude;
-
-            // TESTING
-            //Debug.Log("Highest speed in MPS = " + highestSpeedInMps);
         }
 
         // Update the speed in Miles Per Hour every frame
         speedInMilesPerHour = conversions.MpsToMph(GetComponent<Rigidbody2D>().velocity.magnitude);
-
-        // TESTING
-        //Debug.Log("Speed in MPH = " + speedInMilesPerHour);
 
         // If the current mph is greater than or equal to the highest mph speed so far, update the highest speed.
         if (speedInMilesPerHour >= highestSpeedInMph)
@@ -177,8 +190,11 @@ public class Ball : MonoBehaviour
     /// </summary>
     public void DisplayFinalSpeeds()
     {
-        Debug.Log("Highest speed in MPS = " + highestSpeedInMps);
-        Debug.Log("Highest speed in MPH = " + highestSpeedInMph);
+        //Debug.Log("Ball.DisplayFinalSpeeds()");
+
+
+        //Debug.Log("Highest speed in MPS = " + highestSpeedInMps);
+        //Debug.Log("Highest speed in MPH = " + highestSpeedInMph);
     }
 
     /// <summary>
@@ -186,6 +202,9 @@ public class Ball : MonoBehaviour
     /// </summary>
     private void LaunchOnMouseClick()
     {
+        //Debug.Log("Ball.LaunchOnMouseClick()");
+
+
         // If the user clicks the primary(left) mouse button.
         if (Input.GetMouseButtonDown(0))
         {
@@ -202,6 +221,9 @@ public class Ball : MonoBehaviour
     /// </summary>
     private void LockBallToPaddle()
     {
+        //Debug.Log("Ball.LockBallToPaddle()");
+
+
         // The current X and Y position of the paddle.
         Vector2 _paddlePosition = new Vector2(paddle1.transform.position.x, paddle1.transform.position.y);
 
@@ -215,12 +237,24 @@ public class Ball : MonoBehaviour
     /// <param name="collision">The object that the current object collided with</param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (hasShot)
+        //Debug.Log("Ball.OnCollisionEnter2D(Collision2D collision)");
+
+
+        // If the player has initiated the game by shooting the ball
+        if (hasShot == true)
         {
-            GetComponent<AudioSource>().Play();
+            //GetComponent<AudioSource>().Play();
+            // 'PlayOneShot' means that it will play a sound all the way through without being interrupted.
+            //GetComponent<AudioSource>().PlayOneShot(clip);
+
+            #region Playing a block break sound
+            // This creates a variable of an array of audio clips ranging from the first audio clip to the last in the array
+            //AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
+
+            //myAudioSource.PlayOneShot(clip);
+            #endregion
         }
     }
-
 }
 
 /// <summary>

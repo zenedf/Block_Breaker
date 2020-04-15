@@ -1,8 +1,4 @@
-﻿///TODO
-///[ ] Figure out why the 'ball' collides with the two boundaries I set up on the left and the right,
-///     but the 'paddle' does not. I have to use 'Mathf.Clamp' to keep the 'paddle' from going off screen.
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,13 +9,13 @@ public class Paddle : MonoBehaviour
 {
     #region Configuration Parameters
     // Screen width of the current window in units.
-    [SerializeField] float screenWidthInUnits = 16f;
+    [SerializeField] private readonly float screenWidthInUnits = 16f;
 
     // How far left paddle can go.
-    [SerializeField] float xMin = 1f;
+    [SerializeField] private readonly float xMin = 1f;
 
     // How far right the paddle can go.
-    [SerializeField] float xMax = 15f;
+    [SerializeField] private readonly float xMax = 15f;
     #endregion
 
     /// <summary>
@@ -27,6 +23,9 @@ public class Paddle : MonoBehaviour
     /// </summary>
     void Update()
     {
+        //Debug.Log("Paddle.Update()");
+
+
         // 'Screen.width' shows the current width of the screen window in pixels.
         // We know that there are currently 16 units. We have 16 Unity units from left to right due to how we set up the camera.
         // (Camera is the size of 6, which is the vertical. That means the total vertical is 12.)
@@ -44,5 +43,27 @@ public class Paddle : MonoBehaviour
 
         // This makes the paddle move
         transform.position = _paddlePosition;
+
+
+        #region Testing pressing the pause key in Paddle.cs
+
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+
+        //    Debug.Log("I have pressed escape");
+
+        //    // If the game is currently paused
+        //    if (Time.timeScale == 0)
+        //    {
+        //        sceneLoader.ResumeTheGame();
+        //    }
+        //    // If the game is currently playing
+        //    if (Time.timeScale == 1)
+        //    {
+        //        sceneLoader.PauseTheGame();
+        //    }
+        //}
+
+        #endregion
     }
 }

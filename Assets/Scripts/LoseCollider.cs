@@ -9,26 +9,26 @@ using UnityEngine.SceneManagement;
 public class LoseCollider : MonoBehaviour
 {
     // Creates a 'SceneLoader' to load a scene using this script.
-    SceneLoader loader = new SceneLoader();
+    //private SceneLoader loader = new SceneLoader(); // The 'new' keyword is not allowed for monobehaviour
 
-    #region TESTING
-    //// This is initialized with all the variables as their defaults and it does not update the variables during gameplay.
-    //// Figure out a way to update the variables while the game is running so that we can display final variable values in this current script.
+    //private SceneLoader loader;
 
-    //Scene currentScene;
-    //Ball ball;
+    SceneLoader loader;
 
-    //private void Start()
-    //{
-    //    ball.GetComponent<Ball>();
-    //    currentScene.GetPhysicsScene2D();
-    //}
-    #endregion
+    private void Awake()
+    {
+        //Debug.Log("LoseCollider.Awake()");
 
-    #region Pause Method Testing
-    //// TESTING
-    //[SerializeField] private GameObject pauseCanvas;
-    #endregion
+
+        //loader = FindObjectOfType<SceneLoader>();
+
+
+        // Adds a Component class of type 'componentType' to the game object.
+        //loader = gameObject.AddComponent(typeof(SceneLoader)) as SceneLoader;
+
+        // Generic version
+        loader = gameObject.AddComponent<SceneLoader>() as SceneLoader;
+    }
 
     /// <summary>
     /// When the player's ball drops below a certain height in the level, the 'GameOver' scene is loaded.
@@ -36,6 +36,9 @@ public class LoseCollider : MonoBehaviour
     /// <param name="collision">The collision between an incoming collider and this object's collider</param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Debug.Log("LoseCollider.OnTriggerEnter2D(Collider2D collision)");
+
+
         // This loads the GameOver scene
         loader.LoadGameOverScene();
 

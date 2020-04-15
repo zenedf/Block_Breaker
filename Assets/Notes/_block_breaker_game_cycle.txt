@@ -1,0 +1,67 @@
+When and where does GameSession.UpdateBlockData() get called.
+
+In GameSession.Start() Put line 82 to below line 85. Maybe
+
+NullReferenceException at 175. GameSession(UpdateBlockData)
+
+
+
+1)
+
+Block.DestroyBlock() is called after the number of blocks left gets updated on the screen
+
+It seems like on line 69, the FindObjectType<GameSession>().AddToScore() called inside of Block.DestroyBlock() could instantiate the 'GameSession'. It says it is null.
+
+After that, Destroy(gameObject) is called. Destroying the block this code is attached to due to the ball hitting it.
+
+Then, it calls a method level.BlockDestroyed(). When this is called, we are supposed to decrease the block counter by one.
+
+After that, the last line in that method is Block.FindObjectOfType<GameSession>().UpdateBlockData().
+So, that answers my first question. 
+
+
+2)
+
+Block.DestroyBlock() called a method called level.BlockDestroyed(). This goes into the Level script and calls Level.BlockDestroyed().
+It subtracts one from the amount of breakable bricks. If there are 0 or less, the NextLevel Button comes up.
+This method puts the amount of blocks left at 0 even though there is one in the scene
+
+
+3)
+
+Pause menu is up, I'm back in the game. I chose next level. It brings me to the GameSession.UpdateBlockData(). Here is why I'm doing FindObjectOfType<Level>().GetNumberOfBreakableBlocks() in GameSession.UpdateBlockData() instead of where I thought it would be a good idea to put it (in the GameSession.Start() method). I have to put the code back the way it was. All because of how it is written.
+
+
+
+
+4)
+
+When a block is destroyed, it calls the Block.OnCollisionEnter2D(Collision2D _collision) method. That method only has one line in it. It calls the Block.DestroyBlock Method. That method calls FindObjectOfType<GameSession>().AddToScore(). At this point, the GameSession is null. 
+The currentScore has been able to keep it's score this whole time. That currentScore is a GameSession.cs variable. If I can somehow code the blocksLeft variable the same way it will be able to keep score too. The blocksList gets reset everytime I'm assuming, but the currentScore would have to as well. It must get updated after or before the object gets destroyed. I'm assuming after. In the GameSession.Start() method I am instantiating myself and then updating the blocksLeft variable by using blocksLeft = level.GetNumberOfBreakableBlocks(). I think that is an issue. Line 82 needs to be commented out I think.
+
+5) I am now in Level.BlockDestroyed(). It's about to subtact my total blocks from one, which is correct. this.level.breakableBlocks is correct, but blocksLeft is not. It's like the blocksLeft variable isn't getting updated. Block.Destroy block is a method it came back to after it ran the NextLevelAndQuitButton
+
+
+6) If the block Block.OnCollisionEnter2D() happens, you go to the Block.DestroyBlock() method. That calls the FindObjectOfType<GameSession>().AddToScore(). That takes the currentScore and adds it with the pointsPerBlockDestroyed, which is a static value. Then the currentScore is used to update the score display. Then, you go back into the Block.DestroyBlock() method and call level.BlockDestroyed(). That subtracts the total amount of breakableBlocks by 1. It then checks to see if you have zero blocks left. If you do have zero blocks left, it calls on the sceneLoader.NextLevelAndQuitButtons(). This sets the next level and quit buttons active, and pauses the game. Since it wasn't paused using the pause button, it makes the mouse cursor visible, pauses the game by setting the time.timescale to 0. Checks to see if the objPaddle and objBall are not null so you can set them to false. Then, you go back to Block.DestroyBlock() and use FindObjectOfType<GameSession>().UpdateBlockData(); That brings you to the method and you do blocksLeft = level.GetNumberOfBreakableBlocks(). Which brings you to Level.GetNumberofBreakableBlocks(). You then return a variable called breakableBlocks in the Level class. (line 56, level class look into the life cycle of breakableBlocks). You then go back to GameSession.UpdateBlockData() and you update the BlockCount text to the screen with the blocksLeft variable. Then, you go to GameSession.Update() and update time with Time.timeScale = gameSpeed. Then, the game waits on you to pick either the Next Level button or the Quit Button. I click the NextButton(). It brings me to the Level.Start() method. You then run sceneLoader = FindObjectOfType<SceneLoader>(). This is weird, it's saying that the sceneLoader variable has a LoseCollider(SceneLoader) value. You then go to the SceneLoader.Start() method and intialize a bunch of objects. The only one that's null is the pause canvas. You then go to Block.Start(). You instantiate level = FindObjectOfType<Level>(). It works, you have a breakableBlocks count of zero. You then go to the level.CountBreakableBlocks. breakableBlocks++; is the only code in this method. You run it, it gives you one. Then, you have my addition, which might as we all know I clearly broke somethin with some code today. FindObjectOfType<GameSession>().UpdateBlockData();
+So, I now have zero blocks. Idk if it was the statement that caused it or if it was simply going into the GameSession.UpdateBlockData() method. Also, the level object that I instantiated in the Block class is now null. I honestly think this is the code that broke everything!
+Line 34 on Block.cs It then goes to get the number of breakable blocks which is zero of course. Cycle continues. Keep an eye on Line 83 on Block.cs as well.
+Line 34 on Block.cs was definitely the problem!!! I'm so freaking happy right now. The remaining bricks update just fine now. Just not displaying anything. Also, I now have another null reference exception yay. Making progress though.
+
+
+
+7) Alright, so I removed line 83. Now, the GameSession Object BlocksLeft have counted correctly for the first level, but the number didn't go lower when the bricks were being destroyed for the whole 4 levels. The Level Object is working perfectly though! Also, some good news, the CurrentScore on the GameSession object is updating correctly, and it still has the score saved even when we're on the Game Over scene.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Line 22 on Block.cs is not caching the GameSession object. It's trying to instantiate it in Start() and DestroyBlock(), but it's null.

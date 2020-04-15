@@ -1,0 +1,34 @@
+[ ] Name the game something other than Block_Breaker
+[ ] When the ball gets below 10mps, allow the paddle to catch the ball again. 
+[ ] If the ball reaches below 1, and the hasShot variable is still true, ask the player if they would like to try again.
+[ ] If the ball reaches below 1, increase the gravity. Return the gravity back to normal after the speed goes above 1
+[x] Fix to where the audio sound doesn't play as soon as the scene starts
+[x] Make the menus and such are more appealing
+[ ] Edit all the fonts on the menus to be more appealing
+[x] Implement the pause menu
+[ ] For now, don't let the pause button do anything unless they are playing. (Ex. If the level has been beaten and the next level pops up, they shouldn't be able to press pause)
+[x] Create a win condition by giving you an option to go to the next level once all the blocks are gone
+[x] Make the GUI dynamic
+[ ] With the dynamic scaling, the paddle is able to go out of bounds on the left and right side. This is because the bounds are set with a static value. Set the bounds dynamically by using the same algorithm you used to calculate the distance between the ball and the paddle.
+[x] Test the dynamic scaling levels with the singleton case.
+[x] The singleton case works, but it doesn't get displayed on the gameover screen. Check to see if the information gets erased when you load the gameover screen.
+[ ] Lock the cursor to the game window without disabling the movement.
+[ ] If the game window is really high vertically but really small horizontally, the game speed and player movement move faster. It definitely has something to do with the dynamic feature. This probably has something to do with how the 'speed' is programmed. Figure out a way to fix this. (More testing is required to determine that actual use cases.)(Implement the speed and highest speed reached to try to help debug this.)(In the 'Paddle.cs' code creates a variable with a set screen width. Try to get the screen width into that variable dynamically.)
+[x] Add a quit button when the 'NextLevel' button appears.
+[ ] Determine if 'Demo_1', 'Demo_1_Dynamically_Scaled_Test' and '_Dynamic_Scaling_Test' are scenes that are able to be deleted from the 'Block_Breaker' assets.
+[x] In the 'btnNextLevel' object, it is using the 'SceneLoader' object for the 'On Click' event. It needs to be using the 'Level' object. Make sure this doesn't cause an issue with the button when switching between scenes.
+[ ] Try to initialize buttons to appear or dissapear upon loading a scene. For example, I want the NextLevel butotn to disappear if a playable scene is loaded.
+[-] Cache all of the GameObject.Find that I am able to. It is bad on performance to run that command every frame.
+[x] When LoadNextScene() is used, disable the mouse cursor. [ ] The cursor only disables it after the first level. Fix it.
+[ ] Make more levels
+[x] Test the cursor settings you set up in an actual build. The inspector won't recognize the cursor lock.
+
+[ ] In the GameSession.UpdateBlockData() method, I'm using a 'FindObjectOfType'. I need to cache that up top due to performance.
+[ ] I need to disable all the code involved in the MPS and MPH. A lot of it is on the Ball.cs script and I had completely forgotten about it.
+
+[ ] Maybe we should only have the SceneLoader object load scenes. I'm thinking about making a whole new script to handle pausing. (Pausing is a state. Like Running. Maybe have a script that determines whether the game is paused or not.)
+
+
+TODO Once the game is ready for completion:
+[ ] Make sure the hierarchy prefabs and the assets prefabs are the same
+[ ] Check each scene to make sure they're working
