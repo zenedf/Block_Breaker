@@ -4,7 +4,7 @@
 ///[x] Add a method that detects the ball's speed.
 ///[ ] If the pause menu is on and you click anywhere, then you turn the pause menu off by pressing the escape key, the ball will shoot as soon as the pause menu goes away.
 ///     I think you need to not allow the code in the 'Ball.Update' method to run if the pause menu is activated.
-///[ ] Display the average speed on both
+///[ ] Display the average speed of both
 
 using System;
 using System.Collections;
@@ -17,6 +17,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     #region Configuration Parameters
+    
     // This is used to tell which paddle we are using in reference to this ball.
     [SerializeField] Paddle paddle1;
 
@@ -41,11 +42,11 @@ public class Ball : MonoBehaviour
     // An array of sound files
     [SerializeField] AudioClip[] ballSounds;
 
-    #endregion
+    #endregion Configuration Parameters
 
     #region States
 
-    // An object reference to use the conversions methods
+    // An object reference to use the Conversion classes methods
     Conversions conversions = new Conversions();
 
     // A Vector2 that will used to calculate the distance between the paddle and the ball.
@@ -54,7 +55,7 @@ public class Ball : MonoBehaviour
     // Has the player shot yet?
     public bool hasShot = false;
     
-    #endregion
+    #endregion States
 
     // Cached component references
     AudioSource myAudioSource;
@@ -70,6 +71,7 @@ public class Ball : MonoBehaviour
         // Initialize the cached audio component
         myAudioSource = GetComponent<AudioSource>();
     }
+
 
     /// <summary>
     /// Update is called once per frame
@@ -92,9 +94,9 @@ public class Ball : MonoBehaviour
         }
     }
 
+
     #region Speed Getters
-    
-    
+        
     /// <summary>
     /// Return current ball speed in meters per second
     /// </summary>
@@ -102,6 +104,7 @@ public class Ball : MonoBehaviour
     {
         return (int)speedInMetersPerSecond;
     }
+
 
     /// <summary>
     /// Return current ball speed in miles per hour
@@ -111,6 +114,7 @@ public class Ball : MonoBehaviour
         return (int)speedInMilesPerHour;
     }
 
+
     /// <summary>
     /// Return the highest speed your ball has reached in meters per second for the particular game session
     /// </summary>
@@ -118,6 +122,7 @@ public class Ball : MonoBehaviour
     {
         return (int)highestSpeedInMps;
     }
+
 
     /// <summary>
     /// Return the highest speed your ball has reached in miles per hour for the particular game session
@@ -127,7 +132,8 @@ public class Ball : MonoBehaviour
          return (int)highestSpeedInMph;
     }
     
-    #endregion
+    #endregion Speed Getters
+
 
     /// <summary>
     /// Update the speed information and display it.
@@ -136,6 +142,7 @@ public class Ball : MonoBehaviour
     {
         UpdateSpeeds();
     }
+
 
     /// <summary>
     /// Display the speeds in the serialized fields
@@ -169,6 +176,7 @@ public class Ball : MonoBehaviour
         }
     }
 
+
     /// <summary>
     /// Display the your final speed stats at the end of the game session
     /// </summary>
@@ -177,6 +185,7 @@ public class Ball : MonoBehaviour
         //Debug.Log("Highest speed in MPS = " + highestSpeedInMps);
         //Debug.Log("Highest speed in MPH = " + highestSpeedInMph);
     }
+
 
     /// <summary>
     /// Launches the ball whenver the user wants to start the game.
@@ -194,6 +203,7 @@ public class Ball : MonoBehaviour
         }
     }
 
+
     /// <summary>
     /// Sticks the ball to the paddle and keeps it there.
     /// </summary>
@@ -205,6 +215,7 @@ public class Ball : MonoBehaviour
         // Add the current X and Y paddle positions with the distance between the two Y coordinates of the paddle and ball.
         transform.position = _paddlePosition + paddleToBallVector;
     }
+
 
     /// <summary>
     /// Whenever the ball collides with an object, a sound will play.
@@ -224,10 +235,11 @@ public class Ball : MonoBehaviour
             //AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
 
             //myAudioSource.PlayOneShot(clip);
-            #endregion
+            #endregion Playing a block break sound
         }
     }
 }
+
 
 /// <summary>
 /// This class contains conversion methods.
@@ -251,6 +263,7 @@ public class Conversions
         return _velocity;
     }
 
+    
     /// <summary>
     /// This returns the conversion from meters per second to miles per hour
     /// </summary>
@@ -269,6 +282,7 @@ public class Conversions
         return _mph;
     }
 
+    
     /// <summary>
     /// This returns the conversion from meters per second to miles per hour
     /// </summary>
