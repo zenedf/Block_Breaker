@@ -10,10 +10,11 @@ using UnityEngine.UI;
 public class GameSession : MonoBehaviour
 {
     #region Configuration Parameters
-
     // This is a 'Range' because it gives us a sliding bar to test the game speed with in the inspector.
+    // Speed (1 = normal speed, 0.5 = half speed, 0 = no speed)
     [Range(0.1f, 10f)] [SerializeField] float gameSpeed = 1f;
 
+    // How many points you get per block destroyed
     [SerializeField] int pointsPerBlockDestroyed = 10;
 
     // Text object that displays the game score
@@ -21,30 +22,33 @@ public class GameSession : MonoBehaviour
 
     // Text object that displays the amount of blocks you have left to destroy per level
     [SerializeField] TextMeshProUGUI txtBlockCount;
-
-    #endregion
+    #endregion Configuration Parameters
 
     #region Cached Reference
-
+    // Reference to the SceneLoader.cs class.
+    // Does this reference a script or the Level object which contains the SceneLoader.cs script?
     SceneLoader sceneLoader;
 
+    // Referece to the Level.cs class.
+    // Does this reference the Level object or the Level.cs script?
     Level level; // TESTING
-
-    #endregion
-
+    #endregion Cached Reference
 
     #region State Variables
-
+    // The current score the player has accrued throughout the entire game session
     [SerializeField] int currentScore = 0;
+
+    // How many blocks are left per left
     [SerializeField] int blocksLeft = 0;
 
     // Pause Button Code
+    // (the pause implementation does not work currently)
     //[SerializeField] private bool isPausable_GameSession;
-
-    #endregion
+    #endregion State Variables
 
     /// <summary>
-    /// TODO
+    /// This runs before the Start() method.
+    /// This handles the singleton logic.
     /// </summary>
     void Awake()
     {
@@ -57,7 +61,7 @@ public class GameSession : MonoBehaviour
         {
             // Put this line of code right before 'Destroy' if we're using the Singleton pattern to avoid bugs.
             gameObject.SetActive(false);
-            
+
             // Destroy the current object this code is attached to.
             Destroy(gameObject);
         }
@@ -66,6 +70,7 @@ public class GameSession : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
+
 
     /// <summary>
     /// Initializes the cached references, and updates the current game score.
@@ -78,21 +83,20 @@ public class GameSession : MonoBehaviour
 
         // Initializes a 'Level' object
         // It handles the objects in the level
-        level = FindObjectOfType<Level>(); // TESTING
-        blocksLeft = level.GetNumberOfBreakableBlocks(); // TESTING
+        level = FindObjectOfType<Level>();
+        blocksLeft = level.GetNumberOfBreakableBlocks();
 
         // Updates the current game score on the screen.
         txtScore.text = currentScore.ToString();
 
         #region Pause button testing
-
         //isPausable_GameSession = sceneLoader.isPausable;
 
         // This is for testing the pause button
         //txtScore.text = Time.timeScale.ToString();
-
-        #endregion
+        #endregion Pause button testing
     }
+
 
     /// <summary>
     /// Update is called once per frame
@@ -100,7 +104,6 @@ public class GameSession : MonoBehaviour
     void Update()
     {
         #region This checks each frame to see if the pause button was hit
-
         // This is for testing the pause button
         // txtScore.text = Time.timeScale.ToString();
 
@@ -127,14 +130,12 @@ public class GameSession : MonoBehaviour
         //    //    }
         //    //}
         //}
-
-        #endregion
+        #endregion This checks each frame to see if the pause button was hit
 
         // Puts the game speed back to normal.
         Time.timeScale = gameSpeed;
 
-        #region More Pause Button code
-
+        #region More pause button code
         // If the game wasn't paused from another location, keep updating the time with gameSpeed
         //if (Time.timeScale != 0)
         //{
@@ -142,9 +143,9 @@ public class GameSession : MonoBehaviour
         //    Time.timeScale = gameSpeed;
         //    //Debug.Log("GameSession.Update, Time.timeScale = gameSpeed is " + Time.timeScale);
         //}
-
-        #endregion
+        #endregion More pause button code
     }
+
 
     /// <summary>
     /// Updates the score based on how many blocks are destroyed.
@@ -159,29 +160,23 @@ public class GameSession : MonoBehaviour
         txtScore.text = currentScore.ToString();
     }
 
+
     /// <summary>
     /// This updates the number of blocks left on the screen and displays the number on the screen.
     /// </summary>
     public void UpdateBlockData()
     {
-        //blocksLeft = FindObjectOfType<Level>().GetNumberOfBreakableBlocks();
-
-        // TESTING
-        //blocksLeft += level.GetNumberOfBreakableBlocks(); // TESTING
-        // The first level had 2 blocks starting out. The number did say there were two.
-        // However, as soon as you get one block, the amount went up by one.
-        // The amount then stayed the same the rest of the game.
-
+        // Updates the number or blocks that are left in the level
         blocksLeft = level.GetNumberOfBreakableBlocks(); // TESTING
 
-
+        // Updates the Displays the updated number of blocks
         txtBlockCount.text = blocksLeft.ToString(); // TESTING
     }
 
 
-
-
-    // This is a backup of the UpdateBlockData() method.
+    #region Backup of the UpdateBlockData() method.
+    // This is a 
+    // THe reason for the backup is that I'm trying to change some code in this method.
 
     ///// <summary>
     ///// This updates the number of blocks left on the screen and displays the number on the screen.
@@ -192,6 +187,7 @@ public class GameSession : MonoBehaviour
 
     //    txtBlockCount.text = blocksLeft.ToString();
     //}
+    #endregion Backup of the UpdateBlockData() method.
 
 
     /// <summary>
@@ -202,5 +198,4 @@ public class GameSession : MonoBehaviour
         // Destroys the game object this code is attached to
         Destroy(gameObject);
     }
-
 }

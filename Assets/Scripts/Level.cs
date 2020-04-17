@@ -7,13 +7,21 @@ using UnityEngine;
 /// </summary>
 public class Level : MonoBehaviour
 {
-    #region Tutorial Code
+    #region Configuration Parameters
 
-    // Configuration Parameters
-    [SerializeField] int breakableBlocks; // Serialized for debugging purposes
+    // Serialized for debugging purposes
+    [SerializeField] int breakableBlocks;
 
-    // Cached Reference
+    #endregion Configuration Parameters
+
+    #region Cached Reference
+
+    // Create a cached reference for the SceneLoader.cs script.
+    // This is so you can use the methods in the SceneLoader.cs script.
     SceneLoader sceneLoader;
+
+    #endregion Cached Reference
+
 
     /// <summary>
     /// Start method
@@ -22,41 +30,46 @@ public class Level : MonoBehaviour
     {
         // This confines the cursor to the game menu
         //Cursor.lockState = CursorLockMode.Confined; // TESTING
-        // I don't know if this will disable player movement.
+        // I don't know if this will disable player movement though.
 
+        // Initialize the SceneLoader.cs script variable
         sceneLoader = FindObjectOfType<SceneLoader>();
     }
+
 
     /// <summary>
     /// Each time this is called, we want to add one more breakable block to the total number of breakable blocks
     /// </summary>
     public void CountBreakableBlocks()
     {
+        // Add one to the current number of breakableBlocks
         breakableBlocks++;
     }
+
 
     /// <summary>
     /// When a block is destroyed we want the counter to decrease the number of blocks by 1
     /// </summary>
     public void BlockDestroyed()
     {
+        // Add one to the current number of breakableBlocks
         breakableBlocks--;
 
+        // If the number of breakableBlocks in the level reach zero
         if (breakableBlocks <= 0)
         {
-            //sceneLoader.LoadNextScene();
+            // Activate the NextLevel button and the QuitGame button
             sceneLoader.NextLevelAndQuitButtons();
         }
     }
 
+
     /// <summary>
-    /// TODO
+    /// This will give the current number of breakableBlocks in the level
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The number of breakableBlocks</returns>
     public int GetNumberOfBreakableBlocks()
     {
         return breakableBlocks;
     }
-
-    #endregion Tutorial Code
 }
