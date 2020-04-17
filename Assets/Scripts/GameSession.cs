@@ -198,4 +198,3 @@ public class GameSession : MonoBehaviour
         // Destroys the game object this code is attached to
         Destroy(gameObject);
     }
-}

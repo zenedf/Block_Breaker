@@ -31,7 +31,7 @@ public class Paddle : MonoBehaviour
         //  We know that there are currently 16 units. We have 16 Unity units from left to right due to how we set up the camera.
         // (Camera is the size of 6, which is the vertical. That means the total vertical is 12.)
         // (We have a 4:3 aspect ratio. So, given that our camera size is 6, our width is 16. Half of our width is going to be 8.)
-
+        
         #endregion Screen Information Notes
 
         // This variable shows the mouse location in relation to the middle of the game window.

@@ -26,7 +26,7 @@ public class Ball : MonoBehaviour
 
     // Pushes something 15f unity units per second upward.
     [SerializeField] float yPush = 15f;
-
+    
     // Meters per Second (Unity Units per second are roughly the equivalent to Meters Per Second)
     [SerializeField] float speedInMetersPerSecond;
 
@@ -129,11 +129,11 @@ public class Ball : MonoBehaviour
     /// </summary>
     public int GetHighestSpeedInMPH()
     {
+
         return (int)highestSpeedInMph;
     }
 
     #endregion Speed Getters
-
 
     /// <summary>
     /// Update the speed information and display it.
