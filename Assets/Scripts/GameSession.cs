@@ -23,7 +23,7 @@ public class GameSession : MonoBehaviour
     // Text object that displays the amount of blocks you have left to destroy per level
     [SerializeField] TextMeshProUGUI txtBlockCount;
     #endregion Configuration Parameters
-    
+
     #region Cached Reference
     // Reference to the SceneLoader.cs class.
     // Does this reference a script or the Level object which contains the SceneLoader.cs script?
@@ -37,7 +37,7 @@ public class GameSession : MonoBehaviour
     #region State Variables
     // The current score the player has accrued throughout the entire game session
     [SerializeField] int currentScore = 0;
-    
+
     // How many blocks are left per left
     [SerializeField] int blocksLeft = 0;
 
@@ -61,7 +61,7 @@ public class GameSession : MonoBehaviour
         {
             // Put this line of code right before 'Destroy' if we're using the Singleton pattern to avoid bugs.
             gameObject.SetActive(false);
-            
+
             // Destroy the current object this code is attached to.
             Destroy(gameObject);
         }
@@ -198,4 +198,3 @@ public class GameSession : MonoBehaviour
         // Destroys the game object this code is attached to
         Destroy(gameObject);
     }
-}

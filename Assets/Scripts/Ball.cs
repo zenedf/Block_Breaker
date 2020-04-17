@@ -17,7 +17,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     #region Configuration Parameters
-    
+
     // This is used to tell which paddle we are using in reference to this ball.
     [SerializeField] Paddle paddle1;
 
@@ -54,7 +54,7 @@ public class Ball : MonoBehaviour
 
     // Has the player shot yet?
     public bool hasShot = false;
-    
+
     #endregion States
 
     // Cached component references
@@ -96,7 +96,7 @@ public class Ball : MonoBehaviour
 
 
     #region Speed Getters
-        
+
     /// <summary>
     /// Return current ball speed in meters per second
     /// </summary>
@@ -129,11 +129,11 @@ public class Ball : MonoBehaviour
     /// </summary>
     public int GetHighestSpeedInMPH()
     {
-         return (int)highestSpeedInMph;
-    }
-    
-    #endregion Speed Getters
 
+        return (int)highestSpeedInMph;
+    }
+
+    #endregion Speed Getters
 
     /// <summary>
     /// Update the speed information and display it.
@@ -263,7 +263,7 @@ public class Conversions
         return _velocity;
     }
 
-    
+
     /// <summary>
     /// This returns the conversion from meters per second to miles per hour
     /// </summary>
@@ -282,7 +282,7 @@ public class Conversions
         return _mph;
     }
 
-    
+
     /// <summary>
     /// This returns the conversion from meters per second to miles per hour
     /// </summary>

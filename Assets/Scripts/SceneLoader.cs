@@ -27,14 +27,18 @@ public class SceneLoader : MonoBehaviour
     private GameObject objPauseCanvas;
     // private GameObject objBtnNextLevel; // Test this to see if it will work.
     // private GameObject objBtnQuitGame; // Test this to see if it will work.
-    
+
     #endregion Cached References
-    
+
     #region State Variables
-    
+
     private int intCurrentSceneIndex;
     private int intTotalNumberOfScenes;
     
+    #endregion State Variables
+
+    #region Location of an object as a string
+
     #endregion State Variables
 
     #region Location of an object as a string
@@ -47,7 +51,7 @@ public class SceneLoader : MonoBehaviour
     private readonly string strGameOver = "GameOver";
     private readonly string strGameSession = "GameSession";
     private readonly string strTime = "GameSession/PauseCanvas/Panel/txtMPH";
-    
+
     #endregion Location of an object as a string
 
     /// <summary>
@@ -61,17 +65,17 @@ public class SceneLoader : MonoBehaviour
         objPauseCanvas = GameObject.Find(strPauseCanvas);
         // objBtnNextLevel = GameObject.Find(strBtnNextLevel); // Test this to see if it will work.
         // objBtnQuitGame = GameObject.Find(strBtnNextLevel); // Test this to see if it will work.
-        
+
         // If the objPauseCanvas is in the current scene hierarchy and active in that hierarchy
         if (objPauseCanvas == true)
         {
             // Set the PauseCanvas object in the scene hierarchy to inactive.
             GameObject.Find(strPauseCanvas).SetActive(false);
-            
+
             // Set the PauseCanvas object in the scene hierarchy to inactive.
             // objPauseCanvas.SetActive(false);
             // I don't know if this will work, but I am going to try.
-            
+
             // Make the cursor invisible
             Cursor.visible = false;
         }
@@ -84,7 +88,7 @@ public class SceneLoader : MonoBehaviour
     public void PauseTheGame(bool _pauseButtonPressed)
     {
         #region Backup of the PauseTheGame method code
-        
+
         /*
         // If the game needs to be paused, but it wasn't due to the player pressing the pause button
         if (_pauseButtonPressed == false)
@@ -135,17 +139,17 @@ public class SceneLoader : MonoBehaviour
             }
         }
         */
-        
+
         #endregion Backup of the original PauseTheGame method code
-        
+
         #region TESTING the new PauseTheGame method code
-        
+
         // If the player didn't press the pause button
-        if(_pauseButtonPressed == false)
+        if (_pauseButtonPressed == false)
         {
-            objPauseCanvase.setActive(true);
+            objPauseCanvas.SetActive(true);
         }
-        
+
         // Makes the cursor visible
         Cursor.visible = true;
 
@@ -158,14 +162,14 @@ public class SceneLoader : MonoBehaviour
             // Set the Paddle object to inactive
             objPaddle.SetActive(false);
         }
-            
+
         // If the Ball object is in the current hierarchy
         if (objBall != null)
         {
             // Set the Ball object to inactive
             objBall.SetActive(false);
         }
-        
+
         #endregion TESTING the new PauseTheGame method code
     } // END OF PauseTheGame(bool _pauseButtonPressed)
 
@@ -194,7 +198,7 @@ public class SceneLoader : MonoBehaviour
             // Set the Paddle object to active
             objPaddle.SetActive(true);
         }
-        
+
         // If the Ball object is in the current scene hierarchy
         if (objBall != null)
         {
@@ -213,7 +217,7 @@ public class SceneLoader : MonoBehaviour
         // Set the Next Level Button in the scene to active
         GameObject.Find(strBtnNextLevel).SetActive(true);
         // Try objBtnNextLevel.SetActive(true); only if the initialization of this object works.
-        
+
         // Set the Quit Game Button in the scene to active
         GameObject.Find(strBtnQuitGame).SetActive(true);
         // Try objBtnQuitGame.SetActive(true); only if the initialization of this object works.
@@ -238,14 +242,14 @@ public class SceneLoader : MonoBehaviour
         {
             // Set the Next Level Button to inactive
             GameObject.Find(strBtnNextLevel).GetComponent<Button>().gameObject.SetActive(false);
-            
+
             // Set the Quite Game Button to inactive
             GameObject.Find(strBtnQuitGame).GetComponent<Button>().gameObject.SetActive(false);
         }
 
         // Creates an index of the current active scenes in the 'Edit -> BuildSettings' in Unity
         intCurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        
+
         // If the next scene after the current scene is the GameOver scene
         if (intCurrentSceneIndex + 1 == SceneManager.sceneCountInBuildSettings - 1)
         {
@@ -300,7 +304,8 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     public void QuitGame()
     {
-       // Closes the current application you are running.
-       Application.Quit();
-     } // END OF QuitGame()
+
+        // Closes the current application you are running.
+        Application.Quit();
+    } // END OF QuitGame()
 } // END OF SceneLoader class

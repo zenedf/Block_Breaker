@@ -8,18 +8,21 @@ using UnityEngine;
 public class Level : MonoBehaviour
 {
     #region Configuration Parameters
-    
+
     // Serialized for debugging purposes
     [SerializeField] int breakableBlocks;
-    
+
     #endregion Configuration Parameters
-    
+
     #region Cached Reference
-    
+
     // Create a cached reference for the SceneLoader.cs script.
     // This is so you can use the methods in the SceneLoader.cs script.
     SceneLoader sceneLoader;
     
+    #endregion Cached Reference
+
+
     #endregion Cached Reference
 
 
@@ -31,7 +34,7 @@ public class Level : MonoBehaviour
         // This confines the cursor to the game menu
         //Cursor.lockState = CursorLockMode.Confined; // TESTING
         // I don't know if this will disable player movement though.
-        
+
         // Initialize the SceneLoader.cs script variable
         sceneLoader = FindObjectOfType<SceneLoader>();
     }

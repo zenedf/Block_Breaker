@@ -10,11 +10,11 @@ public class Block : MonoBehaviour
     #region Cached References
     // This is so I can use the Level object with the scripts and methods attached to it.
     Level level;
-    
+
     // This will be the sound played when a block breaks
     //[SerializeField] AudioClip breakSound;
-    #endregion 
-    
+    #endregion
+
     /// <summary>
     /// This run when a block is instantiated and is used to count the blocks
     /// </summary>

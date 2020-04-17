@@ -8,7 +8,7 @@ using UnityEngine;
 public class Paddle : MonoBehaviour
 {
     #region Configuration Parameters
-    
+
     // Screen width of the current window in units.
     [SerializeField] private readonly float screenWidthInUnits = 16f;
 
@@ -17,7 +17,7 @@ public class Paddle : MonoBehaviour
 
     // How far right the paddle can go.
     [SerializeField] private readonly float xMax = 15f;
-    
+
     #endregion Configuration Parameters
 
     /// <summary>
@@ -26,7 +26,7 @@ public class Paddle : MonoBehaviour
     void Update()
     {
         #region Screen Information Notes
-        
+
         // 'Screen.width' shows the current width of the screen window in pixels.
         //  We know that there are currently 16 units. We have 16 Unity units from left to right due to how we set up the camera.
         // (Camera is the size of 6, which is the vertical. That means the total vertical is 12.)
