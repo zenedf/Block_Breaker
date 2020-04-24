@@ -7,22 +7,17 @@ using UnityEngine;
 /// </summary>
 public class Level : MonoBehaviour
 {
-    #region Configuration Parameters
+    // Configuration Parameters
 
     // Serialized for debugging purposes
     [SerializeField] int breakableBlocks;
 
-    #endregion Configuration Parameters
-
-    #region Cached Reference
+    // Cached Reference
 
     // Create a cached reference for the SceneLoader.cs script.
     // This is so you can use the methods in the SceneLoader.cs script.
     SceneLoader sceneLoader;
     
-    #endregion Cached Reference
-
-
     #endregion Cached Reference
 
 
@@ -39,7 +34,6 @@ public class Level : MonoBehaviour
         sceneLoader = FindObjectOfType<SceneLoader>();
     }
 
-
     /// <summary>
     /// Each time this is called, we want to add one more breakable block to the total number of breakable blocks
     /// </summary>
@@ -48,7 +42,6 @@ public class Level : MonoBehaviour
         // Add one to the current number of breakableBlocks
         breakableBlocks++;
     }
-
 
     /// <summary>
     /// When a block is destroyed we want the counter to decrease the number of blocks by 1
@@ -65,7 +58,6 @@ public class Level : MonoBehaviour
             sceneLoader.NextLevelAndQuitButtons();
         }
     }
-
 
     /// <summary>
     /// This will give the current number of breakableBlocks in the level

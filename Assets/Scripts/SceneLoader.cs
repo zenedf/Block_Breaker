@@ -1,5 +1,5 @@
 ﻿///TODO
-///[ ] Set up a way to save the previous save data in a variable to display or update later. (Ex. your highest score)
+///[ ] Take the pause and resume functions to make a whole new script you could re-use for any game.
 
 using System;
 using System.Collections;
@@ -19,7 +19,7 @@ public class SceneLoader : MonoBehaviour
     //private Ball ball;
     //private GameSession gameSession;
 
-    #region Cached References
+    // Cached References
 
     private GameObject objPaddle;
     private GameObject objBall;
@@ -28,9 +28,7 @@ public class SceneLoader : MonoBehaviour
     // private GameObject objBtnNextLevel; // Test this to see if it will work.
     // private GameObject objBtnQuitGame; // Test this to see if it will work.
 
-    #endregion Cached References
-
-    #region State Variables
+    // State Variables
 
     private int intCurrentSceneIndex;
     private int intTotalNumberOfScenes;
@@ -39,10 +37,7 @@ public class SceneLoader : MonoBehaviour
 
     #region Location of an object as a string
 
-    #endregion State Variables
-
-    #region Location of an object as a string
-
+    // Location of an object as a string.
     private readonly string strBtnNextLevel = "GameSession/GameCanvas/btnNextLevel";
     private readonly string strBtnQuitGame = "GameSession/GameCanvas/btnQuitGame";
     private readonly string strPauseCanvas = "GameSession/PauseCanvas";
@@ -51,8 +46,6 @@ public class SceneLoader : MonoBehaviour
     private readonly string strGameOver = "GameOver";
     private readonly string strGameSession = "GameSession";
     private readonly string strTime = "GameSession/PauseCanvas/Panel/txtMPH";
-
-    #endregion Location of an object as a string
 
     /// <summary>
     /// Initialize the cached member variables.
@@ -66,7 +59,7 @@ public class SceneLoader : MonoBehaviour
         // objBtnNextLevel = GameObject.Find(strBtnNextLevel); // Test this to see if it will work.
         // objBtnQuitGame = GameObject.Find(strBtnNextLevel); // Test this to see if it will work.
 
-        // If the objPauseCanvas is in the current scene hierarchy and active in that hierarchy
+        // If the objPauseCanvas is in the current scene hierarchy and active in that hierarchy.
         if (objPauseCanvas == true)
         {
             // Set the PauseCanvas object in the scene hierarchy to inactive.
@@ -76,105 +69,45 @@ public class SceneLoader : MonoBehaviour
             // objPauseCanvas.SetActive(false);
             // I don't know if this will work, but I am going to try.
 
-            // Make the cursor invisible
+            // Make the cursor invisible.
             Cursor.visible = false;
         }
-    } // END OF Start()
-
+    }
 
     /// <summary>
     /// Pause the game whether or not the player pressed the pause button.
     /// </summary>
     public void PauseTheGame(bool _pauseButtonPressed)
     {
-        #region Backup of the PauseTheGame method code
-
-        /*
-        // If the game needs to be paused, but it wasn't due to the player pressing the pause button
-        if (_pauseButtonPressed == false)
-        {
-            // Makes the cursor visible
-            Cursor.visible = true;
-
-            // Pause the game
-            Time.timeScale = 0;
-
-            // If the Paddle object is in the current hierarchy
-            if (objPaddle != null)
-            {
-                // Set the Paddle object to inactive
-                objPaddle.SetActive(false);
-            }
-            
-            // If the Ball object is in the current hierarchy
-            if (objBall != null)
-            {
-                // Set the Ball object to inactive
-                objBall.SetActive(false);
-            }
-        }
-        else
-        {
-            // Set the PauseCanvas object to active
-            objPauseCanvas.SetActive(true);
-
-            // Makes the cursor visible
-            Cursor.visible = true;
-
-            // Pause the game
-            Time.timeScale = 0;
-            
-            // If the Paddle object is in the current hierarchy
-            if (objPaddle != null)
-            {
-                // Set the Paddle object to inactive
-                objPaddle.SetActive(false);
-            }
-            
-            // If the Ball object is in the current hierarchy
-            if (objBall != null)
-            {
-                // Set the Ball object to inactive
-                objBall.SetActive(false);
-            }
-        }
-        */
-
-        #endregion Backup of the original PauseTheGame method code
-
-        #region TESTING the new PauseTheGame method code
-
-        // If the player didn't press the pause button
-        if (_pauseButtonPressed == false)
+        // If the player didn't press the pause button.
+        if (_pauseButtonPressed == true)
         {
             objPauseCanvas.SetActive(true);
         }
 
-        // Makes the cursor visible
+        // Makes the cursor visible.
         Cursor.visible = true;
 
-        // Pause the game
+        // Pause the game.
         Time.timeScale = 0;
 
-        // If the Paddle object is in the current hierarchy
+        // If the Paddle object is in the current hierarchy.
         if (objPaddle != null)
         {
-            // Set the Paddle object to inactive
+            // Set the Paddle object to inactive.
             objPaddle.SetActive(false);
         }
 
-        // If the Ball object is in the current hierarchy
+        // If the Ball object is in the current hierarchy.
         if (objBall != null)
         {
-            // Set the Ball object to inactive
+            // Set the Ball object to inactive.
             objBall.SetActive(false);
         }
-
-        #endregion TESTING the new PauseTheGame method code
-    } // END OF PauseTheGame(bool _pauseButtonPressed)
+    }
 
     /// <summary>
-    /// Resume the game
+    /// Resume the game.
     /// </summary>
     public void ResumeTheGame()
     {
@@ -186,27 +119,26 @@ public class SceneLoader : MonoBehaviour
             objPauseCanvas.SetActive(false);
         }
 
-        // Make the cursor visible
+        // Make the cursor visible.
         Cursor.visible = false;
 
-        // Resume the game
+        // Resume the game.
         Time.timeScale = 1;
 
-        // If the Paddle object is in the current scene hierarchy
+        // If the Paddle object is in the current scene hierarchy.
         if (objPaddle != null)
         {
-            // Set the Paddle object to active
+            // Set the Paddle object to active.
             objPaddle.SetActive(true);
         }
 
-        // If the Ball object is in the current scene hierarchy
+        // If the Ball object is in the current scene hierarchy.
         if (objBall != null)
         {
-            // Set the Ball object to active
+            // Set the Ball object to active.
             objBall.SetActive(true);
         }
-    } // END OF ResumeTheGame()
-
+    }
 
     /// <summary>
     /// This is for when the player beats a level and the 'Next Level' button is in the scene.
@@ -224,8 +156,7 @@ public class SceneLoader : MonoBehaviour
 
         // Pause the game even though the player didn't press the pause button
         PauseTheGame(false);
-    } // END OF NextLevelAndQuitButtons()
-
+    }
 
     /// <summary>
     /// This loads the next scene based on it's index.
@@ -237,36 +168,38 @@ public class SceneLoader : MonoBehaviour
 
         // If the next level button can be active, make it inactive.
         // This is to prevent it being active before the next scene,
-        //   and if it isn't in the scene, it won't throw a null reference exception.
+        // and if it isn't in the scene, it won't throw a null reference exception.
         if (GameObject.Find(strBtnNextLevel) == true)
         {
-            // Set the Next Level Button to inactive
+            // Set the Next Level Button to inactive.
             GameObject.Find(strBtnNextLevel).GetComponent<Button>().gameObject.SetActive(false);
 
-            // Set the Quite Game Button to inactive
+            // Set the Quite Game Button to inactive.
             GameObject.Find(strBtnQuitGame).GetComponent<Button>().gameObject.SetActive(false);
         }
 
-        // Creates an index of the current active scenes in the 'Edit -> BuildSettings' in Unity
+        // Creates an index of the current active scenes in the 'Edit -> BuildSettings' in Unity.
         intCurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        // If the next scene after the current scene is the GameOver scene
+        // If the next scene after the current scene is the GameOver scene.
         if (intCurrentSceneIndex + 1 == SceneManager.sceneCountInBuildSettings - 1)
         {
             // Do nothing
         }
         else
         {
-            // Make the cursor inactive
+            // Make the cursor inactive.
             Cursor.visible = false;
         }
 
         // Loads the next scene in the list.
         SceneManager.LoadScene(intCurrentSceneIndex + 1);
-    } // END OF LoadNextScene()
+
+        //objGameSession.GetComponent<GameSession>().UpdateBlockData(); // TESTING
+    }
 
     /// <summary>
-    /// This loads the first scene in the 'Edit -> BuildSettings'
+    /// This loads the first scene in the 'Edit -> BuildSettings'.
     /// </summary>
     public void LoadStartScene()
     {
@@ -283,29 +216,27 @@ public class SceneLoader : MonoBehaviour
             // This resets all the game stats of our game session. (Ex. our game score)
             objGameSession.GetComponent<GameSession>().ResetGameStats();
         }
-    } // END OF LoadStartScene()
-
+    }
 
     /// <summary>
-    /// This loads the scene titled 'GameOver', regardles off what index it is at in 'Edit -> BuildSettings'
+    /// This loads the scene titled 'GameOver', regardles off what index it is at in 'Edit -> BuildSettings'.
     /// </summary>
     public void LoadGameOverScene()
     {
-        // Makes the cursor visible
+        // Makes the cursor visible.
         Cursor.visible = true;
 
         // Loads the 'GameOver' scene.
         SceneManager.LoadScene(strGameOver);
-    } // END OF LoadGameOverScene()
-
+    }
 
     /// <summary>
-    /// This closes the application
+    /// This closes the application.
     /// </summary>
     public void QuitGame()
     {
 
         // Closes the current application you are running.
         Application.Quit();
-    } // END OF QuitGame()
-} // END OF SceneLoader class
+    }
+}
