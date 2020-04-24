@@ -18,9 +18,6 @@ public class Level : MonoBehaviour
     // This is so you can use the methods in the SceneLoader.cs script.
     SceneLoader sceneLoader;
     
-    #endregion Cached Reference
-
-
     /// <summary>
     /// Start method
     /// </summary>

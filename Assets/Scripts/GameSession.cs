@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// This handles display information for each game session
 /// </summary>
 public class GameSession : MonoBehaviour
-{   
+{
     // This is an example for a global script.
     //public static GameSession gameSessionInstance;
 
@@ -128,7 +128,7 @@ public class GameSession : MonoBehaviour
 
     #region UpdateBlockData() BACKUP
 
-    
+
     /// <summary>
     /// This updates the number of blocks left on the screen and displays the number on the screen.
     /// </summary>
@@ -152,3 +152,5 @@ public class GameSession : MonoBehaviour
         // Destroys the game object this code is attached to
         Destroy(gameObject);
     }
+
+}
