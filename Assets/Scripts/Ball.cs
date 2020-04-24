@@ -16,7 +16,7 @@ using UnityEngine;
 /// </summary>
 public class Ball : MonoBehaviour
 {
-    #region Configuration Parameters
+    // Configuration Parameters
 
     // This is used to tell which paddle we are using in reference to this ball.
     [SerializeField] Paddle paddle1;
@@ -42,9 +42,7 @@ public class Ball : MonoBehaviour
     // An array of sound files
     [SerializeField] AudioClip[] ballSounds;
 
-    #endregion Configuration Parameters
-
-    #region States
+    // States
 
     // An object reference to use the Conversion classes methods
     Conversions conversions = new Conversions();
@@ -54,8 +52,6 @@ public class Ball : MonoBehaviour
 
     // Has the player shot yet?
     public bool hasShot = false;
-
-    #endregion States
 
     // Cached component references
     AudioSource myAudioSource;

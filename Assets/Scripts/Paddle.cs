@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class Paddle : MonoBehaviour
 {
-    #region Configuration Parameters
+    // Configuration Parameters
 
     // Screen width of the current window in units.
     [SerializeField] private readonly float screenWidthInUnits = 16f;
@@ -17,8 +17,6 @@ public class Paddle : MonoBehaviour
 
     // How far right the paddle can go.
     [SerializeField] private readonly float xMax = 15f;
-
-    #endregion Configuration Parameters
 
     /// <summary>
     /// Update is called once per frame
@@ -46,26 +44,5 @@ public class Paddle : MonoBehaviour
 
         // This makes the paddle move
         transform.position = _paddlePosition;
-
-        #region Testing pressing the pause key in Paddle.cs
-
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-
-        //    Debug.Log("I have pressed escape");
-
-        //    // If the game is currently paused
-        //    if (Time.timeScale == 0)
-        //    {
-        //        sceneLoader.ResumeTheGame();
-        //    }
-        //    // If the game is currently playing
-        //    if (Time.timeScale == 1)
-        //    {
-        //        sceneLoader.PauseTheGame();
-        //    }
-        //}
-
-        #endregion Testing pressing the pause key in Paddle.cs
     }
 }
