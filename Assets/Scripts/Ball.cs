@@ -22,7 +22,7 @@ public class Ball : MonoBehaviour
     [SerializeField] Paddle paddle1;
 
     // Pushes something 2f unity units to the right.
-    [SerializeField] float xPush = 2f;
+    [SerializeField] float xPush = 0f;
 
     // Pushes something 15f unity units per second upward.
     [SerializeField] float yPush = 15f;
@@ -90,8 +90,7 @@ public class Ball : MonoBehaviour
         }
     }
 
-
-    #region Speed Getters
+    // Speed Getters
 
     /// <summary>
     /// Return current ball speed in meters per second
@@ -101,7 +100,6 @@ public class Ball : MonoBehaviour
         return (int)speedInMetersPerSecond;
     }
 
-
     /// <summary>
     /// Return current ball speed in miles per hour
     /// </summary>
@@ -109,7 +107,6 @@ public class Ball : MonoBehaviour
     {
         return (int)speedInMilesPerHour;
     }
-
 
     /// <summary>
     /// Return the highest speed your ball has reached in meters per second for the particular game session
@@ -119,7 +116,6 @@ public class Ball : MonoBehaviour
         return (int)highestSpeedInMps;
     }
 
-
     /// <summary>
     /// Return the highest speed your ball has reached in miles per hour for the particular game session
     /// </summary>
@@ -127,9 +123,6 @@ public class Ball : MonoBehaviour
     {
         return (int)highestSpeedInMph;
     }
-
-    #endregion Speed Getters
-
 
     /// <summary>
     /// Update the speed information and display it.

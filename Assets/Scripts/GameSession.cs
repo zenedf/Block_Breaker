@@ -35,7 +35,7 @@ public class GameSession : MonoBehaviour
 
     // Referece to the Level.cs class.
     // Does this reference the Level object or the Level.cs script?
-    Level level;
+    //Level level;
 
     // State Variables
     // The current score the player has accrued throughout the entire game session
@@ -84,7 +84,7 @@ public class GameSession : MonoBehaviour
 
         // Initializes a 'Level' object
         // It handles the objects in the level
-        level = FindObjectOfType<Level>();
+        //level = FindObjectOfType<Level>();
 
         UpdateBlockData();
 
@@ -117,7 +117,7 @@ public class GameSession : MonoBehaviour
     /// <summary>
     /// This updates the number of blocks left on the screen and displays the number on the screen.
     /// </summary>
-    public void UpdateBlockData()
+    public void UpdateBlockData(Level level)
     {
         // Updates the number or blocks that are left in the level.
         blocksLeft = level.GetNumberOfBreakableBlocks();
@@ -125,6 +125,24 @@ public class GameSession : MonoBehaviour
         // Updates the Displays the updated number of blocks.
         txtBlockCount.text = blocksLeft.ToString();
     }
+
+    #region UpdateBlockData() BACKUP
+
+    
+    /// <summary>
+    /// This updates the number of blocks left on the screen and displays the number on the screen.
+    /// </summary>
+    public void UpdateBlockData()
+    {
+        // Updates the number or blocks that are left in the level.
+        blocksLeft = FindObjectOfType<Level>().GetNumberOfBreakableBlocks();
+
+        // Updates the Displays the updated number of blocks.
+        txtBlockCount.text = blocksLeft.ToString();
+    }
+
+
+    #endregion
 
     /// <summary>
     /// Destroys the 'GameSession' object because it's the object that keeps the score information.

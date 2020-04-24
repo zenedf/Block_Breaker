@@ -25,6 +25,11 @@ public class Block : MonoBehaviour
         // Initialize components
         GameSession = FindObjectOfType<GameSession>();
         Level = FindObjectOfType<Level>();
+
+        Level.CountBreakableBlocks();
+
+        //GameSession.GetComponent<GameSession>().UpdateBlockData(Level);
+        GameSession.UpdateBlockData(Level);
     }
 
     /// <summary>
@@ -57,5 +62,7 @@ public class Block : MonoBehaviour
         this.Level.BlockDestroyed();
         // Decrease the block counter by one
         // Check to see if there are any more blocks left in the current level
+
+        GameSession.UpdateBlockData();
     }
 }

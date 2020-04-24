@@ -190,6 +190,8 @@ public class SceneLoader : MonoBehaviour
 
         // Loads the next scene in the list.
         SceneManager.LoadScene(intCurrentSceneIndex + 1);
+
+        //objGameSession.GetComponent<GameSession>().UpdateBlockData(); // TESTING
     }
 
     /// <summary>
