@@ -17,6 +17,9 @@ public class Level : MonoBehaviour
     // Create a cached reference for the SceneLoader.cs script.
     // This is so you can use the methods in the SceneLoader.cs script.
     SceneLoader sceneLoader;
+    
+    #endregion Cached Reference
+
 
     /// <summary>
     /// Start method

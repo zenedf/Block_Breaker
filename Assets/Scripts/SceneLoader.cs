@@ -32,6 +32,10 @@ public class SceneLoader : MonoBehaviour
 
     private int intCurrentSceneIndex;
     private int intTotalNumberOfScenes;
+    
+    #endregion State Variables
+
+    #region Location of an object as a string
 
     // Location of an object as a string.
     private readonly string strBtnNextLevel = "GameSession/GameCanvas/btnNextLevel";
@@ -231,6 +235,7 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     public void QuitGame()
     {
+
         // Closes the current application you are running.
         Application.Quit();
     }
